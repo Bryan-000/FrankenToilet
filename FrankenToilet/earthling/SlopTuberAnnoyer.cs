@@ -11,7 +11,7 @@ public static class SlopTuberAnnoyer
     public static void AnnoySlopTuber() 
     {
         SceneManager.sceneLoaded += (scene, lcm) => {
-            if (HudMessageReceiver.Instance != null)
+            if (HudMessageReceiver.Instance != null && SceneHelper.CurrentScene != "Main Menu")
             {
                 try
                 {
