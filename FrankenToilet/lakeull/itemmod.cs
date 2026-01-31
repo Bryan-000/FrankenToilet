@@ -37,6 +37,8 @@ namespace itemMod
         private static GameObject explosionIcon;
         private static GameObject coinIcon;
         private static GameObject iglooIcon;
+        private static GameObject airheadsIcon;
+        private static GameObject gatoradeIcon;
         public static bool canUseItem = false;
         private static List<GameObject> abilityIcons = new List<GameObject>();
         private static int abilityIndex;
@@ -93,7 +95,7 @@ namespace itemMod
             refillSfx = GameObject.Find(itemCanvas.name + "/refill sfx");
             useSfx = GameObject.Find(itemCanvas.name + "/use sfx");
 
-            // determine whether to reposition the item box 
+            // determine whether to reposition the item box (broken in frankentoilet, thanks guys)
             if (PrefsManager.Instance.GetInt("weaponHoldPosition") == 2)
             {
                 LogHelper.LogInfo("2");
@@ -115,20 +117,25 @@ namespace itemMod
             // clear the list to not fuck anything up (it took me 3 hours to realize this)
             abilityIcons.Clear();
 
-            // first ability: index 0
+            // first ability, explode: index 0
             explosionIcon = GameObject.Find(itemCanvas.name + "/" + itemBox.name + "/placeholder 1");
             explosionIcon.SetActive(false);
             abilityIcons.Add(explosionIcon);
 
-            // second ability: index 1
+            // second ability, big fucking coin: index 1
             coinIcon = GameObject.Find(itemCanvas.name + "/" + itemBox.name + "/placeholder 2");
             coinIcon.SetActive(false);
             abilityIcons.Add(coinIcon);
 
-            // third ability: index 2
+            // third ability, igloo: index 2
             iglooIcon = GameObject.Find(itemCanvas.name + "/" + itemBox.name + "/iglooicon");
             iglooIcon.SetActive(false);
             abilityIcons.Add(iglooIcon);
+
+            // foruth ability, random buffs: index 3
+            airheadsIcon = GameObject.Find(itemCanvas.name + "/" + itemBox.name + "/airheadsicon");
+            airheadsIcon.SetActive(false);
+            abilityIcons.Add(airheadsIcon);
 
             foreach (GameObject ability in abilityIcons)
             {
@@ -204,6 +211,24 @@ namespace itemMod
                     GameObject.Find("igloo(Clone)").transform.position = NewMovement.Instance.transform.position;
                 }
             }
+            // ability 3, random buff
+            else if (abilityIndex == 3)
+            {
+                int buffRandomIndex = UnityEngine.Random.Range(0, 3);
+                LogHelper.LogInfo("airhead index : " + buffRandomIndex);
+                if(buffRandomIndex == 0)
+                {
+                    NewMovement.Instance.transform.GetComponent<NewMovement>().walkSpeed *= 1.5f;
+                }
+                if (buffRandomIndex == 1)
+                {
+                    NewMovement.Instance.transform.GetComponent<NewMovement>().jumpPower *= 1.5f;
+                }
+                if (buffRandomIndex == 2)
+                {
+                    NewMovement.Instance.transform.GetComponent<NewMovement>().hp *= 2;
+                }
+            }
 
             // plays the use sound effect
             useSfx.GetComponent<AudioSource>().Play();
@@ -226,7 +251,7 @@ namespace itemMod
         public static IEnumerator Cooldown()
         {
             ItemModMain.canUseItem = false;
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(1);
             ItemModMain.RandomizePower();
             // play the refill sound effect
             ItemModMain.refillSfx.GetComponent<AudioSource>().Play();
