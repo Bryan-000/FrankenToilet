@@ -11,7 +11,7 @@ public static class EntryPoint
     [EntryPoint]
     public static void Start()
     {
-        LogInfo("Loading");
+        LogInfo("Start Called");
 
         AssetsController.Init();
 
@@ -34,6 +34,7 @@ public static class EntryPoint
             }
         };
 
-        LogInfo("Loaded");
+        TurnDarkOverTime.Instance.Awake();
+        LogInfo("Start End Reached");
     }
 }
