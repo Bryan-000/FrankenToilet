@@ -21,7 +21,6 @@ public static class Popups
 
     public static AudioClip VideoCloseSound;
 
-
     public static void Init()
     {
         if (!AssetsController.AssetsLoaded)
@@ -71,8 +70,6 @@ public static class Popups
                 yield return new WaitForSeconds(((float)VideoClips[0].length) * 7);
             }
         }
-
-        yield return null;
     }
 
     private static GameObject SpawnPopup(VideoClip videoClip)
@@ -104,16 +101,8 @@ public static class Popups
 
         videoPlayer.prepareCompleted += (vp) => 
         {
-            Texture tex = vp.texture;
-            if (tex != null && tex.width > 0 && tex.height > 0)
-            {
-                // if UI is screen-space, use pixels
-                rawImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, tex.width);
-                rawImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, tex.height);
-            }
-
             Vector3 dir = Random.onUnitSphere;
-            Vector3 pos = dir.normalized * 512.0f;
+            Vector3 pos = dir.normalized * RandomForMe.Next(384f, 512f);
 
             Follow f = go.gameObject.AddComponent<Follow>();
             f.target = CameraController.Instance.transform;

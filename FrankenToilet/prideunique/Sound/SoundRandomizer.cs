@@ -10,8 +10,6 @@ namespace FrankenToilet.prideunique;
 
 public static class SoundRandomizer
 {
-    private static System.Random rng = new System.Random((int)DateTime.Now.Ticks);
-
     private struct AudioSlot
     {
         public MemberRef Member;
@@ -1176,7 +1174,7 @@ public static class SoundRandomizer
         while (m > 1)
         {
             m--;
-            int k = rng.Next(m + 1);
+            int k = RandomForMe.Next(m + 1);
             T tmp = list[k];
             list[k] = list[m];
             list[m] = tmp;
@@ -1197,7 +1195,7 @@ public static class SoundRandomizer
         {
             // swap the single fixed-point with a random other index
             int idx = fixedIdx[0];
-            int j = rng.Next(n - 1);
+            int j = RandomForMe.Next(n - 1);
             if (j >= idx)
                 j++; // ensure j != idx
 
@@ -1230,7 +1228,7 @@ public static class SoundRandomizer
         {
             for (int i = n - 1; i > 0; i--)
             {
-                int j = rng.Next(i);
+                int j = RandomForMe.Next(i);
                 T tmp = list[i];
                 list[i] = list[j];
                 list[j] = tmp;

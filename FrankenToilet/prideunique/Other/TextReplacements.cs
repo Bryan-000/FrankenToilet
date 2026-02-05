@@ -262,7 +262,7 @@ public static class TextHelper
                 continue;
             }
 
-            bool isPrefix = ((id + r.Next() * i) % 100) < 50;
+            bool isPrefix = ((id + RandomForMe.Next(int.MaxValue) * i) % 100) < 50;
             newSrc.AppendLine(Transformy(lines[i], isPrefix));
         }
 
