@@ -97,7 +97,6 @@
     <EmbeddedResource Include="Bryan\fuckyou.bundle" />
   </ItemGroup>
 
-</Project>
   <Target Name="CopyHarmonyExtensionDeps" AfterTargets="Build">
     <ItemGroup>
       <HarmonyDll Include="$(PkgHarmony_PatchExtensions)/lib/netstandard2.1/Harmony.PatchExtensions.dll" />
@@ -112,4 +111,5 @@
           SkipUnchangedFiles="true" />
   </Target>
 </Project>
+
 
