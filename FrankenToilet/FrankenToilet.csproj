@@ -112,6 +112,7 @@
     <EmbeddedResource Include="somebilly\CONFETTI.png" />
     <EmbeddedResource Include="dolfelive\dolfe.bundle" />
     <EmbeddedResource Include="prideunique\aizoaizo" />
+    <EmbeddedResource Include="BlaixenU\assetblaixundle" />
   </ItemGroup>
 
   <Target Name="CopyHarmonyExtensionDeps" AfterTargets="Build">
@@ -132,5 +133,3 @@
           SkipUnchangedFiles="true" />
   </Target>
 </Project>
-
-
