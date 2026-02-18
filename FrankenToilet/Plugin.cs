@@ -28,7 +28,7 @@ public sealed class Plugin : BaseUnityPlugin
         var harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
         var entryPointMethods = new List<MethodInfo>();
         var mixinClasses = new List<Type>();
-        
+
         foreach (var type in typeof(Plugin).Assembly
                                            .GetTypes()
                                            .Where(static type => DevModeInfo.CURRENT_DEV_NAMESPACE == null

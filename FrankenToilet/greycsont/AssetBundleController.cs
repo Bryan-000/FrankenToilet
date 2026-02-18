@@ -10,15 +10,15 @@ namespace FrankenToilet.greycsont;
 public static class AssetBundleController
 {
     const string noteSkinPath = "FrankenToilet.greycsont.assetstealfromrhythmgame.bundle";
-    
+
     public static AssetBundle assetBundle;
 
     public static Sprite[] arrowSprites;
 
     public static Sprite[] farInTheBlueSky;
-    
+
     public static Dictionary<string, AudioClip> audioCaches = new Dictionary<string, AudioClip>();
-    
+
     [EntryPoint]
     public static void Initialize()
     {
@@ -38,7 +38,7 @@ public static class AssetBundleController
         else
             LogHelper.LogDebug($"[greycsont] farInTheBlueSky found");
     }
-    
+
     public static AssetBundle LoadAssetBundle(string assetBundlePath)
     {
         var assembly = Assembly.GetExecutingAssembly();

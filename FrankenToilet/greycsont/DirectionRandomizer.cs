@@ -8,15 +8,15 @@ namespace FrankenToilet.greycsont;
 public static class DirectionRandomizer
 {
     public static int randomDirection;
-    
+
     public static void GenerateRandomDirection() => randomDirection = Random.Range(0, 4);
-    
+
     public static Vector3 Randomize4Dir(Vector3 direction)
     {
         Vector3 resultDir;
-        
+
         var camT = MonoSingleton<CameraController>.Instance.transform;
-        
+
         switch ((Direction)randomDirection)
         {
             case Direction.Upwards:
@@ -52,11 +52,11 @@ public static class DirectionRandomizer
                 LogHelper.LogDebug("[greycsont] FUCK IENUMERATOR");
                 break;
         }
-        
+
         LogHelper.LogDebug($"[greycsont] Direction: {(Direction)randomDirection}");
         LogHelper.LogDebug($"[greycsont] input: {direction.x} {direction.y} {direction.z}");
         LogHelper.LogDebug($"[greycsont] resultDir: {resultDir.x} {resultDir.y} {resultDir.z}");
-        
+
         return resultDir;;
     }
 }

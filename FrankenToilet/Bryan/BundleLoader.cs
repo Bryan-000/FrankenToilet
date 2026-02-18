@@ -45,7 +45,7 @@ public static class BundleLoader
     public static void Load()
     {
         GrabEmbeddedBundle();
-        
+
         Amercia = assetBundle.LoadAsset<VideoClip>("assets/amercia.mp4");
         ComicSands = assetBundle.LoadAsset<TMP_FontAsset>("assets/comicsans.asset");
         ComicSandsLegacy = assetBundle.LoadAsset<Font>("assets/comicsanslegacy.ttf");
@@ -80,7 +80,7 @@ public static class BundleLoader
         LogHelper.LogInfo(string.Join(", ", assetBundle.GetAllAssetNames()));
 
     /// <summary> Grabs all the paths to all embedded assets and logs it. </summary>
-    public static void GrabEmbeddedAssetPaths() => 
+    public static void GrabEmbeddedAssetPaths() =>
         LogHelper.LogInfo($"Embedded Assets: {string.Join(", ", Assembly.GetExecutingAssembly().GetManifestResourceNames())}");
 
     #endregion

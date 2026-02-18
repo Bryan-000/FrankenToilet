@@ -28,7 +28,7 @@ public class EnemyIdentifierPatches
 
     [HarmonyPrefix]
     [HarmonyPatch("Death", new Type[]{typeof(bool)})]
-    public static void SpawnFishOnDeath(EnemyIdentifier __instance) 
+    public static void SpawnFishOnDeath(EnemyIdentifier __instance)
     {
         if (__instance.dead) return;
 

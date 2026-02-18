@@ -3,9 +3,6 @@
 using FrankenToilet.Core;
 using HarmonyLib;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary> Patch the silly lil style hud :3 </summary>
 [PatchOnEntry]
