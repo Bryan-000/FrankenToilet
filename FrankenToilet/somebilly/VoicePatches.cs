@@ -168,8 +168,8 @@ namespace FrankenToilet.somebilly {
     [HarmonyPatch]
     public static class VoiceEarthmoverBrainPatch {
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(Machine), "Start")]
-        public static void Postfix(Machine __instance) {
+        [HarmonyPatch(typeof(Enemy), "Start")]
+        public static void Postfix(Enemy __instance) {
             if (__instance.name == "Brain") {
                 Bib.Instance.AddAndPlayVoice(__instance.gameObject, Bib.Voices["EARTHMOVER_BRAIN"]);
             }
@@ -328,8 +328,8 @@ namespace FrankenToilet.somebilly {
     [HarmonyPatch]
     public static class VoiceMaliciousFacePatch {
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(SpiderBody), "Start")]
-        public static void Postfix(SpiderBody __instance) {
+        [HarmonyPatch(typeof(MaliciousFace), "Start")]
+        public static void Postfix(MaliciousFace __instance) {
             Bib.Instance.AddAndPlayVoice(__instance.gameObject, Bib.Voices["MALICIOUS_FACE"]);
         }
     }
@@ -450,7 +450,7 @@ namespace FrankenToilet.somebilly {
     [HarmonyPatch]
     public static class VoiceGagabrielPatch {
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(GabrielSecond), "Start")]
+        [HarmonyPatch(typeof(GabrielSecond), "Awake")]
         public static void Postfix(GabrielSecond __instance) {
             Bib.Instance.AddAndPlayVoice(__instance.gameObject, Bib.Voices["GAGABRIEL"], 0.85f);
         }

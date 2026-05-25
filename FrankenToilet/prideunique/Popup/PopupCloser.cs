@@ -7,6 +7,7 @@ namespace FrankenToilet.prideunique;
 [ConfigureSingleton(SingletonFlags.DestroyDuplicates | SingletonFlags.PersistAutoInstance)]
 public class PopupCloser : MonoSingleton<PopupCloser>
 {
+    public void Awake() {}
     public void Update()
     {
         if (!InputManager.Instance.InputSource.Fire1.WasPerformedThisFrame)

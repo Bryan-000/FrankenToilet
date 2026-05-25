@@ -6,6 +6,7 @@
     <Product>FrankenToilet</Product>
     <GUID>com.ultramodding.frankentoilet</GUID>
     <Version>1.0.0</Version>
+    <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>14.0</LangVersion>
     <RootNamespace>FrankenToilet</RootNamespace>
@@ -18,65 +19,10 @@
     </RestoreAdditionalProjectSources>
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-
-    <NoWarn>CS8632, CS8321, CS0219, CS0618, CS0649, CS0414, CS0169, IDE0161, MSB3277, RCS1075, RCS1102</NoWarn>
   </PropertyGroup>
 
   <Import Project="Properties/DeployToPlugins.targets" />
   <Import Project="Properties/DevMode.targets" />
-  <ItemGroup>
-    <Compile Remove="alma\**" />
-    <Compile Remove="Bananastudio\**" />
-    <Compile Remove="BlaixenU\**" />
-    <Compile Remove="bobthecorn\**" />
-    <Compile Remove="dolfelive\**" />
-    <Compile Remove="doomahreal\**" />
-    <Compile Remove="Heavyreal\**" />
-    <Compile Remove="duviz\**" />
-    <Compile Remove="earthling\**" />
-    <Compile Remove="flazhik\**" />
-    <Compile Remove="greycsont\**" />
-    <Compile Remove="lakeull\**" />
-    <Compile Remove="mercy\**" />
-    <Compile Remove="Plonk\**" />
-    <Compile Remove="prideunique\**" />
-    <Compile Remove="somebilly\**" />
-    <Compile Remove="triggeredidiot\**" />
-    <EmbeddedResource Remove="alma\**" />
-    <EmbeddedResource Remove="Bananastudio\**" />
-    <EmbeddedResource Remove="BlaixenU\**" />
-    <EmbeddedResource Remove="bobthecorn\**" />
-    <EmbeddedResource Remove="dolfelive\**" />
-    <EmbeddedResource Remove="doomahreal\**" />
-    <EmbeddedResource Remove="Heavyreal\**" />
-    <EmbeddedResource Remove="duviz\**" />
-    <EmbeddedResource Remove="earthling\**" />
-    <EmbeddedResource Remove="flazhik\**" />
-    <EmbeddedResource Remove="greycsont\**" />
-    <EmbeddedResource Remove="lakeull\**" />
-    <EmbeddedResource Remove="mercy\**" />
-    <EmbeddedResource Remove="Plonk\**" />
-    <EmbeddedResource Remove="prideunique\**" />
-    <EmbeddedResource Remove="somebilly\**" />
-    <EmbeddedResource Remove="triggeredidiot\**" />
-    <None Remove="alma\**" />
-    <None Remove="Bananastudio\**" />
-    <None Remove="BlaixenU\**" />
-    <None Remove="bobthecorn\**" />
-    <None Remove="dolfelive\**" />
-    <None Remove="doomahreal\**" />
-    <None Remove="Heavyreal\**" />
-    <None Remove="duviz\**" />
-    <None Remove="earthling\**" />
-    <None Remove="flazhik\**" />
-    <None Remove="greycsont\**" />
-    <None Remove="lakeull\**" />
-    <None Remove="mercy\**" />
-    <None Remove="Plonk\**" />
-    <None Remove="prideunique\**" />
-    <None Remove="somebilly\**" />
-    <None Remove="triggeredidiot\**" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.*" />
@@ -143,7 +89,38 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="alma\assets.bundle" />
+    <None Remove="alma\scenes.bundle" />
+    <None Remove="Bananastudio\frankentoiletbundle" />
+    <None Remove="Bananastudio\gazimages" />
+    <None Remove="Bananastudio\videoclips" />
+    <None Remove="doomahreal\veryuniqueassetsnametrust.bundle" />
+    <None Remove="dolfelive\dolfe.bundle" />
+    <None Remove="triggeredidiot\assets.bundle" />
+    <None Remove="greycsont\assetstealfromrhythmgame.bundle" />
+    <None Remove="earthling\toiletonfire.bundle" />
+    <None Remove="lakeull\lakeullsfunnybundle" />
+    <None Remove="prideunique\aizoaizo" />
+    <None Remove="mercy\assets.bundle" />
+    <EmbeddedResource Include="alma\assets.bundle" />
+    <EmbeddedResource Include="alma\scenes.bundle" />
+    <EmbeddedResource Include="Bananastudio\frankentoiletbundle" />
+    <EmbeddedResource Include="Bananastudio\gazimages" />
+    <EmbeddedResource Include="Bananastudio\videoclips" />
+    <EmbeddedResource Include="doomahreal\veryuniqueassetsnametrust.bundle" />
+    <EmbeddedResource Include="duviz\meow.bundle" />
+    <EmbeddedResource Include="triggeredidiot\assets.bundle" />
+    <EmbeddedResource Include="greycsont\assetstealfromrhythmgame.bundle" />
+    <EmbeddedResource Include="earthling\toiletonfire.bundle" />
+    <EmbeddedResource Include="lakeull\lakeullsfunnybundle" />
     <EmbeddedResource Include="Bryan\fuckyou.bundle" />
+    <EmbeddedResource Include="dolfelive\dolfe.bundle" />
+    <EmbeddedResource Include="prideunique\aizoaizo" />
+    <EmbeddedResource Include="BlaixenU\assetblaixundle" />
+    <EmbeddedResource Include="flazhik\ultrakill_sa.bundle" />
+    <EmbeddedResource Include="bobthecorn\ultraclicker_assets_all.bundle" />
+    <EmbeddedResource Include="somebilly\assets.bundle" />
+    <EmbeddedResource Include="mercy\assets.bundle" />
   </ItemGroup>
 
   <Target Name="CopyHarmonyExtensionDeps" AfterTargets="Build">
@@ -158,4 +135,3 @@
     <Copy SourceFiles="@(MonoModILHelpersDll)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" />
   </Target>
 </Project>
-
