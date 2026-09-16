@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 using UnityObject = UnityEngine.Object;
 
-/// <summary> Die </summary>
+/// <summary> Helper for loading and caching all the assets from the assetbundle </summary>
 public static class Assets
 {
     /// <summary> Spooky scary asset bundle oooooo </summary>
@@ -26,7 +26,7 @@ public static class Assets
     public static Font L_ComicSands;
 
     /// <summary> silly </summary>
-    public static Sprite UlraKil, ulakill, HeavyImg, Trans;
+    public static Sprite UlraKil, ulakill, Flash, HeavyImg, Trans;
 
     /// <summary> the budget was dropped for maurice </summary>
     public static GameObject MauriceBad;
@@ -41,7 +41,7 @@ public static class Assets
     /// <summary> such an evil lil fella :3 </summary>
     public static AudioClip Laughing;
 
-    /// <summary> Load the asset bundle when we enter the main menu. </summary>
+    /// <summary> Waits til the user enters the main menu before loading the assetbundle. </summary>
     public static void DelayedLoad()
     {
         SceneManager.sceneLoaded += StartLoadIfMainMenu;
@@ -55,7 +55,7 @@ public static class Assets
         }
     }
 
-    /// <summary> Load the asset bundle. </summary>
+    /// <summary> Loads the asset bundle. </summary>
     public static void Load()
     {
         GrabEmbeddedBundle();
@@ -63,6 +63,7 @@ public static class Assets
         Trans    = LoadAsset<Sprite>("Assets/trans.png");
         ulakill  = LoadAsset<Sprite>("Assets/title.png");
         HeavyImg = LoadAsset<Sprite>("Assets/heavy.png");
+        Flash    = LoadAsset<Sprite>("Assets/flash.jpeg");
         UlraKil  = LoadAsset<Sprite>("Assets/ultrakill wingdings.png");
 
         Amercia  = LoadAsset<VideoClip>("Assets/amercia.mp4");
@@ -85,11 +86,8 @@ public static class Assets
     /// <summary> Loads an asset from the asset bundle with the provided name and checks if it's null. </summary>
     public static T LoadAsset<T>(string name) where T : UnityObject
     {
-        LogHelper.LogInfo("loading asset " + name);
         T result = assetBundle.LoadAsset<T>(name);
-        LogHelper.LogInfo("loaded asset " + (result?.name ?? "<null>"));
         result = result ?? throw new NullReferenceException($"Assetbundle doesn't have an asset called {name}");
-        LogHelper.LogInfo("didnt throw :P");
         return result;
     }
 

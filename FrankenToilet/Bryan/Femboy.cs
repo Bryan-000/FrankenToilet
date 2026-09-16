@@ -32,18 +32,19 @@ public static class Femboy
 
             switch (SceneHelper.CurrentScene)
             {
-                case "Main Menu":
-                    if (ConfigManager.Bryan.ReplaceUltrakillTitleImages.value)
-                        FindObject<Image>("Canvas/Main Menu (1)/LeftSide/Title").sprite = Assets.ulakill;
-                    break;
-                case "Level 0-1":
-                    if (ConfigManager.Bryan.ReplaceUltrakillTitleImages.value)
-                        FindObject<Image>("Canvas/HurtScreen/Title Sound/Image").sprite = Assets.UlraKil;
-                    break;
+                case "Main Menu" when ConfigManager.Bryan.ReplaceUltrakillTitleImages.value:
+                    FindObject<Image>("Canvas/Main Menu (1)/LeftSide/Title").sprite = Assets.ulakill;
+                break;
 
-                case "Level 2-1":
-                    if (!ConfigManager.Bryan.EnableBridgeBurnerTransLighting.value)
-                        break;
+                case "Level 0-1" when ConfigManager.Bryan.ReplaceUltrakillTitleImages.value:
+                    FindObject<Image>("Canvas/HurtScreen/Title Sound/Image").sprite = Assets.UlraKil;
+                break;
+
+                case "Level 7-1":
+                    FindObject<Image>("Canvas/HurtScreen/White").sprite = Assets.Flash;
+                break;
+
+                case "Level 2-1" when ConfigManager.Bryan.EnableBridgeBurnerTransLighting.value:
                     Transform Room1Lighting = FindObject<Transform>("1 - New Opener/1 Nonstuff/Lighting");
                     Room1Lighting.GetChild(0).GetComponent<Light>().color = new(0f, 0.8f, 1f, 1f);
                     Room1Lighting.GetChild(1).GetComponent<Light>().color = new(0.86f, 0f, 0.5f, 1f);
@@ -119,7 +120,7 @@ public static class Femboy
 
         public GameObject ReplaceAllShaders(Shader shader)
         {
-            if (!shader) throw new ArgumentNullException(nameof(shader));
+            if (!shader) throw new ArgumentNullException("shader");
 
             IEnumerable<Renderer> allRenderers = obj.GetComponents<Renderer>();
             allRenderers = allRenderers.Concat(obj.GetComponentsInChildren<Renderer>(true));
