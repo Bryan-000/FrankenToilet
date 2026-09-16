@@ -327,7 +327,6 @@ public class ItemModMain
     }
 }
 
-[EntryPoint]
 public class ItemModUpdates : MonoBehaviour
 {
     public void Update()
