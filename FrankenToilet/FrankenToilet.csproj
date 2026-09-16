@@ -11,6 +11,7 @@
     <LangVersion>14.0</LangVersion>
     <RootNamespace>FrankenToilet</RootNamespace>
     <UltrakillDir>Defined in FrankenToilet.csproj.user!!</UltrakillDir> <!-- Ensure that this has BepInEx installed -->
+    <PluginConfigPath>Defined in FrankenToilet.csproj.user!!</PluginConfigPath>
     <CopyToBepInExPluginsDir>true</CopyToBepInExPluginsDir>
     
     <RestoreAdditionalProjectSources>
@@ -85,7 +86,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="PluginConfigurator">
+    <Reference Include="PluginConfigurator" Condition="Exists('$(PluginConfigPath)')">
+      <HintPath>$(PluginConfigPath)</HintPath>
+      <Private>false</Private>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="PluginConfigurator" Condition="!Exists('$(PluginConfigPath)')">
       <HintPath>$(UltrakillDir)BepInEx/plugins/PluginConfigurator/PluginConfigurator.dll</HintPath>
       <Private>false</Private>
       <CopyLocal>false</CopyLocal>
