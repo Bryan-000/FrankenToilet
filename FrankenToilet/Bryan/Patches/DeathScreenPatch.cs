@@ -13,6 +13,7 @@ public static class DeathScreenPatch
     {
         if (!ConfigManager.Bryan.EnableCustomSkullDeathScreen.value)
             return;
+
         __instance.GetComponent<Animator>().runtimeAnimatorController = Assets.LaughingAnim;
         __instance.gameObject.AddComponent<LaughLaugh>();
 

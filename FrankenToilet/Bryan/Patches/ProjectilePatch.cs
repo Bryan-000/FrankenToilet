@@ -10,10 +10,7 @@ public static class ProjectilePatch
     [HarmonyPrefix] [HarmonyPatch("Start")]
     public static void meow(Projectile __instance)
     {
-        if (!ConfigManager.Bryan.DuplicateProjectiles.value)
-            return;
-        
-        if (__instance.GetComponent<ProjectileFucker>() == null) // check if it already has a ProjecttileFucker
-            __instance.gameObject.AddComponent<ProjectileFucker>(); // since this will make it constantly create more projectiles when it dupes itself
+        if (!__instance.GetComponent<ProjectileFucker>() && ConfigManager.Bryan.DuplicateProjectiles.value)
+            __instance.gameObject.AddComponent<ProjectileFucker>();
     }
 }

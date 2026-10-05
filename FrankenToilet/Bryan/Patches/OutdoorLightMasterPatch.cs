@@ -12,10 +12,7 @@ public static class OutdoorLightMasterPatch
     [HarmonyPostfix] [HarmonyPatch("Start")]
     public static void raaaaaaawruwu(OutdoorLightMaster __instance)
     {
-        if (!ConfigManager.Bryan.EnableBridgeBurnerTransLighting.value)
-            return;
-        
-        if (SceneHelper.CurrentScene == "Level 2-1")
+        if (SceneHelper.CurrentScene == "Level 2-1" && ConfigManager.Bryan.EnableBridgeBurnerTransLighting.value)
         {
             __instance.outdoorLights[0].color = new Color(0.86f, 0f, 0.5f, 1f);
             __instance.outdoorLights[1].color = new Color(0f, 0.81f, 1f, 1f);

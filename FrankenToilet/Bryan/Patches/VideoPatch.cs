@@ -13,7 +13,7 @@ public class VideoPatch
     [HarmonyPrefix] [HarmonyPatch("Prepare")] [HarmonyPatch("Play")] [HarmonyPatch("Pause")] [HarmonyPatch("Stop")]
     public static unsafe void ReplaceVideo(VideoPlayer __instance)
     {
-        if (__instance.GetComponent<NonReplaceableVideo>() == null)  // just make sure that it should be replaced :3
+        if (!__instance.GetComponent<NonReplaceableVideo>())  // just make sure that it should be replaced :3
         {
             __instance.url = "";
             __instance.isLooping = true;

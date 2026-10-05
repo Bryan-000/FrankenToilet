@@ -1,0 +1,94 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <!-- Ensure that this has BepInEx installed -->
+        <UltrakillDir>D:\Steam\steamapps\common\ULTRAKILL\</UltrakillDir>
+        <PluginConfigPath>Unassigned, will use default</PluginConfigPath>
+        
+        <RestoreAdditionalProjectSources>
+            https://nuget.bepinex.dev/v3/index.json;
+            https://nuget.samboy.dev/v3/index.json
+        </RestoreAdditionalProjectSources>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.Core" Version="5.*" />
+        <PackageReference Include="Krafs.Publicizer" Version="2.3.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="UnityEngine.Modules" Version="2022.3.29" IncludeAssets="compile" />
+        <PackageReference Include="MonoMod.Backports" Version="1.1.2" GeneratePathProperty="true" />
+        <PackageReference Include="MonoMod.ILHelpers" Version="1.1.0" GeneratePathProperty="true" />
+        <PackageReference Include="Harmony.PatchExtensions" Version="1.1.0" GeneratePathProperty="true" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="PluginConfigurator" Condition="Exists('$(PluginConfigPath)')">
+            <HintPath>$(PluginConfigPath)</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+        <Reference Include="PluginConfigurator" Condition="!Exists('$(PluginConfigPath)')">
+            <HintPath>$(UltrakillDir)BepInEx/plugins/PluginConfigurator/PluginConfigurator.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/Assembly-CSharp.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+        <Reference Include="plog">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/plog.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+        <Reference Include="NewBlood.EngineInterop">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data\Managed\NewBlood.EngineInterop.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+        <Reference Include="Facepunch.Steamworks.Win64">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/Facepunch.Steamworks.Win64.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+
+        <Reference Include="UnityEngine.UI">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/UnityEngine.UI.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+        <Reference Include="Unity.TextMeshPro">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/Unity.TextMeshPro.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+        <Reference Include="Unity.Addressables">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/Unity.Addressables.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+        <Reference Include="UnityEngine.ResourceManagement">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/Unity.ResourceManager.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+        <Reference Include="Unity.InputSystem">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/Unity.InputSystem.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/Newtonsoft.Json.dll</HintPath>
+            <Private>false</Private>
+            <CopyLocal>false</CopyLocal>
+        </Reference>
+
+        <Publicize Include="Assembly-CSharp" />
+    </ItemGroup>
+    
+</Project>

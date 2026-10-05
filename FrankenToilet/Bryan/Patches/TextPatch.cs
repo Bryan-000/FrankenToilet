@@ -18,7 +18,7 @@ public static class TextMeshProUGUIPatch
         
         __instance.font = Assets.ComicSands ?? __instance.font;
         
-        if (__instance.gameObject.GetComponent<TextFucker>() == null)
+        if (!__instance.gameObject.GetComponent<TextFucker>())
             __instance.gameObject.AddComponent<TextFucker>();
     }
 }
@@ -36,7 +36,7 @@ public static class LegacyTextPatch
         
         __instance.font = Assets.L_ComicSands ?? __instance.font;
 
-        if (__instance.gameObject.GetComponent<TextFucker>() == null)
+        if (!__instance.gameObject.GetComponent<TextFucker>())
             __instance.gameObject.AddComponent<TextFucker>();
     }
 }

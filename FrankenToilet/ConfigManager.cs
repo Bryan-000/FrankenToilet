@@ -1,11 +1,9 @@
 ﻿namespace FrankenToilet;
 
-using System;
 using PluginConfig.API;
-using PluginConfig.API.Decorators;
-using PluginConfig.API.Fields;
+using FrankenToilet.Config;
 
-public static partial class ConfigManager
+public static class ConfigManager
 {
     public static PluginConfigurator config;
 

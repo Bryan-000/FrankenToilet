@@ -8,18 +8,18 @@ using UnityEngine;
 [PatchOnEntry] [HarmonyPatch(typeof(Wicked))]
 public static class SomethingHeavyPatch
 {
-    /// <summary> dooooooooooooomaaaaaaaaaah </summary>
     [HarmonyPrefix] [HarmonyPatch("Start")]
-    public static void dooooooomahhhhh(Wicked __instance)
+    public static void heeaaaaaavvvvyyyy(Wicked __instance)
     {
         if (!ConfigManager.Bryan.ReplaceSomethingWickedWithTF2Heavy.value)
             return;
         
         __instance.transform.Find("SomethingWicked").gameObject.SetActive(false);
 
-        var Heavy = Object.Instantiate(Assets.HeavyReal, __instance.transform);
+        GameObject Heavy = Object.Instantiate(Assets.HeavyReal, __instance.transform);
         Heavy.transform.localPosition = new(0f, 5f, 0f);
-        foreach (var mat in Heavy.GetComponent<MeshRenderer>().materials)
+
+        foreach (Material mat in Heavy.GetComponent<MeshRenderer>().materials)
             mat.shader = DefaultReferenceManager.Instance.masterShader;
     }
 }

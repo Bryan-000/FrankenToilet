@@ -8,13 +8,14 @@ using BepInEx.Logging;
 using FrankenToilet.Core;
 using HarmonyLib;
 using HarmonyLib.PatchExtensions;
+using PluginConfig;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static FrankenToilet.Core.LogHelper;
 
 namespace FrankenToilet;
 
-[BepInDependency("com.eternalUnion.pluginConfigurator")]
+[BepInDependency(PluginConfiguratorController.PLUGIN_GUID)]
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public sealed class Plugin : BaseUnityPlugin
 {

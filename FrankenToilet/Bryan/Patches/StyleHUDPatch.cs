@@ -41,10 +41,10 @@ public static class StyleHUDPatch
     [HarmonyPrefix] [HarmonyPatch(typeof(StyleHUD), "GetLocalizedName")]
     public static bool USEMINEGRRR(string id, ref string __result)
     {
-        if (!ConfigManager.Bryan.EnableCustomStyles.value)
+        if (!ConfigManager.Bryan.EnableStupidStyles.value)
             return true;
         
-        if (styleEdits.TryGetValue(id, out var replacement))
+        if (styleEdits.TryGetValue(id, out string replacement))
         {
             __result = replacement;
             return false;

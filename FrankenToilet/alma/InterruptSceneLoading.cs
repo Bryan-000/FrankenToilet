@@ -23,8 +23,8 @@ internal class InterruptSceneLoading
             AssetBundle assetsBundle = Functions.GetBundle("FrankenToilet.alma.assets.bundle");
             string[] scenePaths = bundle.GetAllScenePaths();
             string[] assetsNames = assetsBundle.GetAllAssetNames();
-            LogHelper.LogError(scenePaths);
-            LogHelper.LogError(assetsNames);
+            LogHelper.LogInfo(scenePaths);
+            LogHelper.LogInfo(assetsNames);
         }
         catch (Exception ex)
         {

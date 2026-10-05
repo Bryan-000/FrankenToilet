@@ -28,7 +28,7 @@ public static class Femboy
 
         SceneManager.sceneLoaded += (_, _) =>
         {
-            fuckText = UnityRandom.Range(1, 101) <= (int)ConfigManager.Bryan.TextChaosChance.value;
+            fuckText = UnityRandom.Range(1, 101) <= ConfigManager.Bryan.TextFuckChance.value;
 
             switch (SceneHelper.CurrentScene)
             {
@@ -40,7 +40,7 @@ public static class Femboy
                     FindObject<Image>("Canvas/HurtScreen/Title Sound/Image").sprite = Assets.UlraKil;
                 break;
 
-                case "Level 7-1":
+                case "Level 7-1" when ConfigManager.Bryan.Replace7_1Flash.value:
                     FindObject<Image>("Canvas/HurtScreen/White").sprite = Assets.Flash;
                 break;
 
@@ -72,10 +72,10 @@ public static class Femboy
                     for (int i = 0; i < 20; i++)
                         Room5Lighting.GetChild(i).Find("Point Light").GetComponent<Light>().color = new(0.92f, 0.4f, 0.74f, 1f);
 
-                    break;
+                break;
             }
 
-            if (SceneHelper.CurrentScene != "Intro")
+            if (SceneHelper.CurrentScene != "Intro" && ConfigManager.Bryan.ReplaceVideos.value)
             {
                 foreach (VideoPlayer vid in UnityObject.FindObjectsOfType<VideoPlayer>(true))
                     VideoPatch.ReplaceVideo(vid);

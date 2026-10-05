@@ -8,11 +8,10 @@ using UnityEngine;
 [PatchOnEntry] [HarmonyPatch(typeof(Skull))]
 public static class HeavySkullPatch
 {
-    /// <summary> dooooooooooooomaaaaaaaaaah2 </summary>
     [HarmonyPrefix] [HarmonyPatch("Awake")]
     public static void heeeeavvvvvvvvvyyyy2(Skull __instance)
     {
-        if(!ConfigManager.Bryan.EnableTF2HeavySkulls.value)
+        if (!ConfigManager.Bryan.EnableTF2HeavySkulls.value)
             return;
         
         Transform oldSkull = __instance.transform.Find("NewSkull");

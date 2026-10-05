@@ -12,14 +12,14 @@ public static class MuaricePATCH
     [HarmonyPrefix] [HarmonyPatch("Awake")]
     public static void lowquality(MaliciousFace __instance)
     {
-        if(!ConfigManager.Bryan.ReplaceMauriceModel.value)
+        if (!ConfigManager.Bryan.ReplaceMauriceModel.value)
             return;
         
         SkinnedMeshRenderer mr = __instance.transform.Find("MaliciousFace/MaliciousFace").GetComponent<SkinnedMeshRenderer>();
         mr.enabled = false;
 
-        var mauriceBad = Object.Instantiate(Assets.MauriceBad, mr.transform);
-        foreach (var mat in mauriceBad.GetComponent<MeshRenderer>().materials)
+        GameObject mauriceBad = Object.Instantiate(Assets.MauriceBad, mr.transform);
+        foreach (Material mat in mauriceBad.GetComponent<MeshRenderer>().materials)
             mat.shader = DefaultReferenceManager.Instance.masterShader;
     }
 }
