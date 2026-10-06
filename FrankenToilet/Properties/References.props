@@ -1,10 +1,14 @@
-﻿<Project>
-
-    <PropertyGroup>
+﻿<Project InitialTargets="ValidatePaths">
+    
+    <PropertyGroup Label="HEY LOOK HERE SET THE STUFF HERE IGNORE EVERYTHING BELOW THIS">
         <!-- Ensure that this has BepInEx installed -->
-        <UltrakillDir>D:\Steam\steamapps\common\ULTRAKILL\</UltrakillDir>
-        <PluginConfigPath>Unassigned, will use default</PluginConfigPath>
-        
+        <UltrakillDir>C:/Program Files (x86)/Steam/steamapps/common/ULTRAKILL/</UltrakillDir>
+        <PluginConfigPath>$(UltrakillDir)BepInEx/plugins/PluginConfigurator/PluginConfigurator.dll</PluginConfigPath>
+    </PropertyGroup>
+
+    
+    
+    <PropertyGroup>
         <RestoreAdditionalProjectSources>
             https://nuget.bepinex.dev/v3/index.json;
             https://nuget.samboy.dev/v3/index.json
@@ -24,14 +28,14 @@
         <PackageReference Include="Harmony.PatchExtensions" Version="1.1.0" GeneratePathProperty="true" />
     </ItemGroup>
 
+    <Target Name="ValidatePaths">
+        <Error Condition="!Exists('$(UltrakillDir)')" Text="Couldn't find the ULTRAKILL folder, open FrankenToilet/Properties/References.props and assign UltrakillDir to where your ULTRAKILL install is located." />
+        <Error Condition="!Exists('$(PluginConfigPath)')" Text="Couldn't find Plugin Configurator, open FrankenToilet/Properties/References.props and assign PluginConfigPath to where your PluginConfigurator.dll is located." />
+    </Target>
+    
     <ItemGroup>
-        <Reference Include="PluginConfigurator" Condition="Exists('$(PluginConfigPath)')">
+        <Reference Include="PluginConfigurator">
             <HintPath>$(PluginConfigPath)</HintPath>
-            <Private>false</Private>
-            <CopyLocal>false</CopyLocal>
-        </Reference>
-        <Reference Include="PluginConfigurator" Condition="!Exists('$(PluginConfigPath)')">
-            <HintPath>$(UltrakillDir)BepInEx/plugins/PluginConfigurator/PluginConfigurator.dll</HintPath>
             <Private>false</Private>
             <CopyLocal>false</CopyLocal>
         </Reference>
@@ -47,7 +51,7 @@
             <CopyLocal>false</CopyLocal>
         </Reference>
         <Reference Include="NewBlood.EngineInterop">
-            <HintPath>$(UltrakillDir)ULTRAKILL_Data\Managed\NewBlood.EngineInterop.dll</HintPath>
+            <HintPath>$(UltrakillDir)ULTRAKILL_Data/Managed/NewBlood.EngineInterop.dll</HintPath>
             <Private>false</Private>
             <CopyLocal>false</CopyLocal>
         </Reference>
