@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -90,6 +90,9 @@ public sealed class DolfeCountdown : MonoBehaviour
 
     void Update()
     {
+        if (!ConfigManager.DolfeLive.EnableSin.value)
+            return;
+
         if (!countingDown)
         {
             RainbowCountdown();

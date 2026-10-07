@@ -7,11 +7,12 @@ public static class ConfigManager
 {
     public static PluginConfigurator config;
 
-    public static AlmaPanel alma;
-    public static BananaStudioPanel Bananastudio;
+    public static AlmaPanel Alma;
+    public static BananaStudioPanel BananaStudio;
     public static BlaixenUPanel BlaixenU;
-    public static BobTheCornPanel bobthecorn;
+    public static BobTheCornPanel BobTheCorn;
     public static BryanPanel Bryan;
+    public static DolfeLivePanel DolfeLive;
     public static PlonkPanel Plonk;
 
     public static void Initialize()
@@ -21,16 +22,15 @@ public static class ConfigManager
 
         config = PluginConfigurator.Create(MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_GUID);
 
-        alma = new(config.rootPanel);
-        Bananastudio = new(config.rootPanel);
+                Alma = new(config.rootPanel);
+        BananaStudio = new(config.rootPanel);
         BlaixenU = new(config.rootPanel);
-        bobthecorn = new(config.rootPanel);
+          BobTheCorn = new(config.rootPanel);
         Bryan = new(config.rootPanel);
+           DolfeLive = new(config.rootPanel);
         Plonk = new(config.rootPanel);
 
         /*
-        ConfigPanel CorePanel = new ConfigPanel(config.rootPanel, "Core", "Core_panel");
-        ConfigPanel dolfelivePanel = new ConfigPanel(config.rootPanel, "dolfelive", "dolfelive_panel");
         ConfigPanel doomahrealPanel = new ConfigPanel(config.rootPanel, "doomahreal", "doomahreal_panel");
         ConfigPanel duvizPanel = new ConfigPanel(config.rootPanel, "duviz", "duviz_panel");
         ConfigPanel earthlingPanel = new ConfigPanel(config.rootPanel, "earthling", "earthling_panel");

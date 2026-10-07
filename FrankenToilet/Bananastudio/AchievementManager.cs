@@ -9,7 +9,7 @@ public class AchievementManager
 {
     public static void ExecuteAchievement(string name, string description, string iconPath = "")
     {
-        if (!ConfigManager.Bananastudio.EnableAchievements.value) return;
+        if (!ConfigManager.BananaStudio.EnableAchievements.value) return;
         
         if (MainThingy.frankenCanvas == null) return;
 

@@ -39,7 +39,7 @@ internal class InterruptSceneLoading
         public static bool Prefix()
         {
             int percentage = new System.Random().Next(1, 101);
-            if (percentage <= (int)ConfigManager.alma.LevelJumpscareChance.value)
+            if (percentage <= (int)ConfigManager.Alma.LevelJumpscareChance.value)
             {
                 if (SceneHelper.CurrentScene != "Bootstrap")
                 {

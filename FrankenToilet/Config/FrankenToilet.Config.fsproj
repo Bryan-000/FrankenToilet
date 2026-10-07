@@ -15,6 +15,7 @@
         <Compile Include="BlaixenUPanel.fs" />
         <Compile Include="BobTheCornPanel.fs" />
         <Compile Include="BryanPanel.fs" />
+        <Compile Include="DolfeLivePanel.fs" />
         <Compile Include="PlonkPanel.fs" />
     </ItemGroup>
 

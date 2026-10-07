@@ -114,7 +114,7 @@ public static class MainThingy
 
         foreach (var dor in GameObject.FindObjectsOfType<Door>(true))
         {
-            if(Random.value < (ConfigManager.Bananastudio.ReplaceDoorTexturesWithMemesChance.value/100f) )
+            if(Random.value < (ConfigManager.BananaStudio.ReplaceDoorTexturesWithMemesChance.value/100f) )
             {
                 foreach (var rend in dor.GetComponentsInChildren<Renderer>(true))
                 {
@@ -125,7 +125,7 @@ public static class MainThingy
 
         foreach (var dor in GameObject.FindObjectsOfType<BigDoor>(true))
         {
-            if(Random.value < (ConfigManager.Bananastudio.ReplaceDoorTexturesWithMemesChance.value/100f) )
+            if(Random.value < (ConfigManager.BananaStudio.ReplaceDoorTexturesWithMemesChance.value/100f) )
             {
                 foreach (var rend in dor.GetComponentsInChildren<Renderer>(true))
                 {
@@ -142,7 +142,7 @@ public static class MainThingy
         
         if (SceneHelper.CurrentScene == "Main Menu")
         {
-            if (ConfigManager.Bananastudio.EnablePlushiesFalling.value)
+            if (ConfigManager.BananaStudio.EnablePlushiesFalling.value)
                 new GameObject("FallerManager").AddComponent<PlushyFaller>();
             if (gameAlreadyOpened) return;
             int timesGameOpened = PlayerPrefs.GetInt("TimesOpened", 0);
@@ -247,16 +247,16 @@ public static class MainThingy
             Physics.gravity = defaultGravity;
             recordedPositions.Clear();
 
-            if (Random.value <= (ConfigManager.Bananastudio.EvilV1SpawnChance.value / 100f) )
+            if (Random.value <= (ConfigManager.BananaStudio.EvilV1SpawnChance.value / 100f) )
             {
-                if (ConfigManager.Bananastudio.EnableEVILV1.value)
+                if (ConfigManager.BananaStudio.EnableEVILV1.value)
                 {
                     HudMessageReceiver.Instance.SendHudMessage("<color=red>[WARNING]</color> Evil V1 is coming to your level in 5 seconds");
                     NewMovement.Instance.StartCoroutine(recordPositions());
                     NewMovement.Instance.StartCoroutine(spawnEvilV1());
                 }
             }
-            else if (ConfigManager.Bananastudio.EnablePlayerBuffs.value)
+            else if (ConfigManager.BananaStudio.EnablePlayerBuffs.value)
             {
                 // Calc buffs
                 int amountOfBuffs = Random.Range(1, possibleBuffs.Count + 1);
@@ -559,7 +559,7 @@ public static class MainThingy
                     "Assets/Textures/UI/Spawn Menu/Red_Altar.png");
             }
             VideoClip randomClip = ads[Random.Range(0, ads.Count)];
-            if(frankenCanvas != null && ConfigManager.Bananastudio.EnableAdsOnDeath.value)
+            if(frankenCanvas != null && ConfigManager.BananaStudio.EnableAdsOnDeath.value)
             {
                 VideoPlayer plr = frankenCanvas.transform.Find("VideoStuff/AddTime!/Video").GetComponent<VideoPlayer>();
                 plr.clip = randomClip;
@@ -600,7 +600,7 @@ public static class MainThingy
 
         public static void Prefix(BossBarManager __instance)
         {
-            if (!ConfigManager.Bananastudio.EnableSpecialBossHealthBars.value)
+            if (!ConfigManager.BananaStudio.EnableSpecialBossHealthBars.value)
                 return;
             
             if (changedBossBars.Contains(__instance)) return;
@@ -645,7 +645,7 @@ public static class MainThingy
                 AchievementManager.ExecuteAchievement("ULTRAKILL", "KILL 10000 ENEMIES",
                     "Assets/Textures/UI/Spawn Menu/SisyphusPrime.png");
             }
-            if (!ConfigManager.Bananastudio.EnableImplosionsOnEnemyDeath.value) return;
+            if (!ConfigManager.BananaStudio.EnableImplosionsOnEnemyDeath.value) return;
             
             if (!enemysThatCanImplode.Contains(__instance.enemyType)) return;
             Material voidMat = bundle.LoadAsset<Material>("Void");
@@ -655,7 +655,7 @@ public static class MainThingy
             Implosion imp = implosionObject.AddComponent<Implosion>();
             UnityEngine.Object.Destroy(implosionObject.GetComponent<Collider>());
             imp.origin = __instance;
-            imp.size = ConfigManager.Bananastudio.ImplosionRadius.value;
+            imp.size = ConfigManager.BananaStudio.ImplosionRadius.value;
             
             if (__instance.bigEnemy)
             {
@@ -715,7 +715,7 @@ public static class MainThingy
 
                 System.Random rng = new System.Random(SceneHelper.CurrentScene.GetHashCode());
 
-                if (rng.NextDouble() > (ConfigManager.Bananastudio.MinosOverrideChance.value / 100f) )
+                if (rng.NextDouble() > (ConfigManager.BananaStudio.MinosOverrideChance.value / 100f) )
                     return;
 
                 GameObject minos = GameObject.Instantiate(MainThingy.LoadAddress<GameObject>("Assets/Prefabs/Enemies/MinosPrime.prefab"), __instance.transform.position,
