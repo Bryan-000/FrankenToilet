@@ -340,6 +340,8 @@ public static class MainThingy
             yield return new WaitForSeconds(5);
             HudMessageReceiver.Instance.SendHudMessage("<color=red>[WARNING]</color> Evil V1 has spawned, <color=red>dont touch it!!!!");
             GameObject evilV1 = Object.Instantiate(bundle.LoadAsset<GameObject>("EVILV1"));
+            evilV1.AddComponent<DestroyOnCheckpointRestart>();
+
             PositionsFollower follower = evilV1.AddComponent<PositionsFollower>();
             follower.prevPos = recordedPositions[0];
             recordedPositions.RemoveAt(0);

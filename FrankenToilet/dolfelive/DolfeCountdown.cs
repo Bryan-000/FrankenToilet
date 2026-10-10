@@ -175,7 +175,10 @@ public sealed class DolfeCountdown : MonoBehaviour
     public void StartTimer()
     {
         if (_audioPaused)
+        {
             _audioSource.UnPause();
+            _audioPaused = false;
+        }
     }
 
     public void StopTimer()

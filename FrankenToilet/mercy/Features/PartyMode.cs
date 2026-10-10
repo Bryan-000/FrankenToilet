@@ -24,12 +24,14 @@ public sealed class PartyMode : MonoBehaviour
     {
         frames = Helper.LoadFrames(Plugin.assetBundle, "PartyTime", FRAMECOUNT);
         image = gameObject.AddComponent<Image>();
+        image.raycastTarget = false;
         GameObject textObj = Instantiate(new GameObject("Text"), transform);
         TextMeshProUGUI tmp = textObj.AddComponent<TextMeshProUGUI>();
         tmp.text = "PARTY TIME!!!!";
         tmp.enableWordWrapping = false;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.color = Color.magenta;
+        tmp.raycastTarget = false;
         Vector3 pos = transform.position;
         textObj.transform.position = new Vector3(pos.x, pos.y - HEIGHT, pos.z);
         frameTimer.Start();

@@ -48,6 +48,7 @@ public sealed class QuickTimeChallenge : MonoBehaviour
         tmp = gameObject.AddComponent<TextMeshProUGUI>();
         tmp.text = inputText();
         tmp.fontSize = 16;
+        tmp.raycastTarget = false;
         tmp.enableWordWrapping = false;
         tmp.alignment = TextAlignmentOptions.Center;
         gameObject.transform.position -= new Vector3(0, 300, 0);

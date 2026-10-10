@@ -219,7 +219,6 @@ public static class PatchClass
         DolfePlugin.countdown.textPrefab = DolfePlugin.textPrefab.GetComponent<TextMeshProUGUI>();
         DolfePlugin.countdown.container = DolfePlugin.containerInstance.transform;
         DolfePlugin.countdown.timeRunOutClip = BundleLoader.bundle.LoadAsset<AudioClip>("Assets/timer_runout.wav");
-        DolfePlugin.countdown.countingDown = true;
         
         if (DolfePlugin.sinInstance != null)
         {

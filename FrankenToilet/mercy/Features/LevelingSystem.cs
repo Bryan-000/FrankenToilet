@@ -14,13 +14,13 @@ public sealed class LevelingSystem : MonoBehaviour
     public static void Activate()
     {
         GameObject gameObject = Instantiate(
-            Plugin.assetBundle.LoadAsset<GameObject>("Assets/Features/LEVEL.prefab"), 
+            Plugin.assetBundle.LoadAsset<GameObject>("Assets/Features/LEVEL.prefab"),
             Plugin.canvas.transform);
         gameObject.AddComponent<LevelingSystem>();
     }
 
     public static int GetExperienceRequired() => (int) Math.Round(10 * Math.Exp(level));
-    
+
     public void IncreaseExp(int exp)
     {
         experience += exp;
@@ -30,8 +30,14 @@ public sealed class LevelingSystem : MonoBehaviour
             level++;
         }
     }
-    
-    private void Awake() => gameObject.transform.position = new Vector3(160, 1038);
+
+    private void Awake()
+    {
+        foreach (TextMeshProUGUI tmp in GetComponentsInChildren<TextMeshProUGUI>())
+            tmp.raycastTarget = false;
+
+        gameObject.transform.position = new Vector3(160, 1038);
+    }
 
     private void Update()
     {

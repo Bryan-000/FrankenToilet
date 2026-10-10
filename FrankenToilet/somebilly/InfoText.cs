@@ -1,4 +1,4 @@
-#pragma warning disable CS8618
+﻿#pragma warning disable CS8618
 using FrankenToilet.Core;
 using HarmonyLib;
 using UnityEngine;
@@ -32,6 +32,7 @@ namespace FrankenToilet.somebilly {
             lineWelcome.transform.SetParent(layout.transform);
             textWelcome = lineWelcome.AddComponent<TextMeshProUGUI>();
             textWelcome.fontSize = 28;
+            textWelcome.raycastTarget = false;
             textWelcome.enableWordWrapping = false;
             textWelcome.horizontalAlignment = TMPro.HorizontalAlignmentOptions.Center;
 
@@ -41,6 +42,7 @@ namespace FrankenToilet.somebilly {
             lineDateSwayer.speed = 0.5f * UnityEngine.Random.Range(2, 10);
             textDate = lineDate.AddComponent<TextMeshProUGUI>();
             textDate.fontSize = 28;
+            textDate.raycastTarget = false;
             textDate.enableWordWrapping = false;
             textDate.horizontalAlignment = TMPro.HorizontalAlignmentOptions.Center;
 
@@ -51,6 +53,7 @@ namespace FrankenToilet.somebilly {
             lineRandomScaler.progress = 4.5f;
             textRandom = lineRandom.AddComponent<TextMeshProUGUI>();
             textRandom.fontSize = 28;
+            textRandom.raycastTarget = false;
             textRandom.enableWordWrapping = false;
             textRandom.horizontalAlignment = TMPro.HorizontalAlignmentOptions.Center;
 
@@ -61,6 +64,7 @@ namespace FrankenToilet.somebilly {
             lineSceneSwayer.progress = 2f;
             textScene = lineScene.AddComponent<TextMeshProUGUI>();
             textScene.fontSize = 28;
+            textScene.raycastTarget = false;
             textScene.enableWordWrapping = false;
             textScene.horizontalAlignment = TMPro.HorizontalAlignmentOptions.Center;
             UpdateTexts();

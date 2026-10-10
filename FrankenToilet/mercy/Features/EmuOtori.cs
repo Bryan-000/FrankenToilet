@@ -23,6 +23,7 @@ public sealed class EmuOtori : MonoBehaviour
     {
         frames = Helper.LoadFrames(Plugin.assetBundle, "EmuOtori", FRAMECOUNT);
         image = gameObject.AddComponent<Image>();
+        image.raycastTarget = false;
         frameTimer.Start();
         duplicateTimer.Start();
     }

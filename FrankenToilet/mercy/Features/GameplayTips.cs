@@ -45,6 +45,7 @@ public sealed class GameplayTips : MonoBehaviour
         text.color = Color.yellow;
         text.alignment = TextAlignmentOptions.Center;
         text.enableWordWrapping = false;
+        text.raycastTarget = false;
         timer.Start();
     }
 

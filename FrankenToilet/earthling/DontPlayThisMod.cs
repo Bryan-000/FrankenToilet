@@ -14,7 +14,7 @@ public static class DontPlayThisMod
             if (SceneHelper.CurrentScene == "Main Menu")
             {
                 GameObject playButtonText = GameObject.Find("Canvas/Main Menu (1)/LeftSide/Continue/Text");
-                playButtonText.GetComponent<TMPro.TextMeshProUGUI>().text = "don't play";
+                playButtonText?.GetComponent<TMPro.TextMeshProUGUI>().text = "don't play";
             }
         };
     }

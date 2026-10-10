@@ -7,15 +7,17 @@ public class PopupManager : MonoBehaviour
     private GameObject popupObject;
 
     private float timeOfLastPopup;
-
     public float TimeSincePopup => Time.realtimeSinceStartup - timeOfLastPopup;
+
+    public static int TotalPopups;
 
     private void Update()
     {
         if (!ConfigManager.BlaixenU.EnablePopups.value)
             return;
-        
-        if (TimeSincePopup > Random.Range(ConfigManager.BlaixenU.PopupsMinSpawnTime.value, ConfigManager.BlaixenU.PopupsMaxSpawnTime.value))
+
+        if (TimeSincePopup > Random.Range(ConfigManager.BlaixenU.PopupsMinSpawnTime.value, ConfigManager.BlaixenU.PopupsMaxSpawnTime.value)
+                && TotalPopups < ConfigManager.BlaixenU.MaxPopups.value)
         {
             timeOfLastPopup = Time.realtimeSinceStartup;
             Popup();
@@ -27,15 +29,17 @@ public class PopupManager : MonoBehaviour
         switch (Random.Range(1, 4))
         {
             case 1:
-            popupObject = Instantiate(AssetMan.Popup1);
+                popupObject = Instantiate(AssetMan.Popup1);
             break;
             case 2:
-            popupObject = Instantiate(AssetMan.Popup2);
+                popupObject = Instantiate(AssetMan.Popup2);
             break;
             case 3:
-            popupObject = Instantiate(AssetMan.Popup3);
+                popupObject = Instantiate(AssetMan.Popup3);
             break;
         }
+        popupObject.AddComponent<Popup>();
+
         var canvas = UnityPathHelper.FindCanvas();
         var popupTrans = popupObject.transform;
         popupTrans.SetParent(canvas.transform);
@@ -45,10 +49,23 @@ public class PopupManager : MonoBehaviour
         float posY = 400 + Random.Range(-200, 200);
 
         Vector3 pos = new(posX, posY, 0);
-        
+
         rectTrans.SetPositionAndRotation(pos, rectTrans.rotation);
 
         rectTrans.SetAsLastSibling();
+    }
+}
+
+public class Popup : MonoBehaviour
+{
+    private void OnEnable()
+    {
+        PopupManager.TotalPopups++;
+    }
+
+    private void OnDisable()
+    {
+        PopupManager.TotalPopups--;
     }
 }
 

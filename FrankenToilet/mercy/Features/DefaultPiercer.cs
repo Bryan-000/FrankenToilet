@@ -23,6 +23,7 @@ public sealed class DefaultPiercer : MonoBehaviour
         int y = Plugin.rand.Next(0, Screen.height);
         gameObject.transform.position = new Vector3(x, y);
         tmp = gameObject.AddComponent<TextMeshProUGUI>();
+        tmp.raycastTarget = false;
         tmp.fontSize = 24;
         mult = Math.Round(Plugin.rand.NextDouble()+1, 3);
         stopwatch.Start();
