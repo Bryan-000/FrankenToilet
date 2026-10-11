@@ -35,7 +35,10 @@ public static class headspin
     [HarmonyPostfix]
     static void Postfix(CameraController __instance)
     {
-        __instance.tilt = false;
-        __instance.transform.localEulerAngles = new Vector3(0f - __instance.rotationX, 0f, 5f);
+        if (ConfigManager.Doomah.EnableCameraTilt.value)
+        {
+            __instance.tilt = false;
+            __instance.transform.localEulerAngles = new Vector3(0f - __instance.rotationX, 0f, 5f);
+        }
     }
 }

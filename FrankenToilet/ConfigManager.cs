@@ -13,6 +13,7 @@ public static class ConfigManager
     public static BobTheCornPanel BobTheCorn;
     public static BryanPanel Bryan;
     public static DolfeLivePanel DolfeLive;
+    public static DoomahRealPanel Doomah;
     public static PlonkPanel Plonk;
 
     public static void Initialize()
@@ -24,14 +25,14 @@ public static class ConfigManager
 
                 Alma = new(config.rootPanel);
         BananaStudio = new(config.rootPanel);
-        BlaixenU = new(config.rootPanel);
+            BlaixenU = new(config.rootPanel);
           BobTheCorn = new(config.rootPanel);
-        Bryan = new(config.rootPanel);
+               Bryan = new(config.rootPanel);
            DolfeLive = new(config.rootPanel);
-        Plonk = new(config.rootPanel);
+              Doomah = new(config.rootPanel);
+               Plonk = new(config.rootPanel);
 
         /*
-        ConfigPanel doomahrealPanel = new ConfigPanel(config.rootPanel, "doomahreal", "doomahreal_panel");
         ConfigPanel duvizPanel = new ConfigPanel(config.rootPanel, "duviz", "duviz_panel");
         ConfigPanel earthlingPanel = new ConfigPanel(config.rootPanel, "earthling", "earthling_panel");
         ConfigPanel flazhikPanel = new ConfigPanel(config.rootPanel, "flazhik", "flazhik_panel");
