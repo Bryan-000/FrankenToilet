@@ -19,6 +19,7 @@
         <Compile Include="BryanPanel.fs" />
         <Compile Include="DolfeLivePanel.fs" />
         <Compile Include="DoomahRealPanel.fs" />
+        <Compile Include="DuvizPanel.fs" />
         <Compile Include="PlonkPanel.fs" />
     </ItemGroup>
 

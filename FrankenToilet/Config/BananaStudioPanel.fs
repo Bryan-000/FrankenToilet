@@ -1,7 +1,7 @@
 ﻿namespace FrankenToilet.Config
 
 type BananaStudioPanel(parentPanel) as panel =
-    inherit Panel(parentPanel, "Bananastudio", "Bananastudio_panel")
+    inherit Panel(parentPanel, "BananaStudio", "Bananastudio_panel")
 
     member val EnableAchievements          = Bool(panel, "Enable minecraft style achievements", "Bananastudio.EnableAchievements", true)
     member val EnableAdsOnDeath            = Bool(panel, "Enable ads on death", "Bananastudio.EnableAdsOnDeath", true)

@@ -1,7 +1,7 @@
 ﻿namespace FrankenToilet.Config
 
 type DoomahRealPanel(parentPanel) as panel =
-    inherit Panel(parentPanel, "doomahreal", "doomahreal_panel")
+    inherit Panel(parentPanel, "DoomahReal", "doomahreal_panel")
     
     member val EnableCameraTilt        = Bool(panel, "Enable Camera Tilt", "doomahreal.EnableCameraTilt", true)
     member val EnableWhatsAppGabe      = Bool(panel, "Enable WhatsApp Gabe", "doomahreal.EnableWhatsAppGabe", true)

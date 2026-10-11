@@ -26,7 +26,7 @@ public class HealthPatch
     [HarmonyPostfix]
     public static void Postfix(HealthBar __instance)
     {
-        if (__instance.hpText != null)
+        if (__instance.hpText != null && ConfigManager.Duviz.EnableSmashHP.value)
         {
             __instance.hpText.text = $"{__instance.hp.ToString("F0")} // {HealthRemover.percentage.ToString("F2")}%";
         }
@@ -40,14 +40,21 @@ public class NewMovementHurtPatch
     [HarmonyPrefix]
     public static void Prefix(NewMovement __instance, ref int damage)
     {
+        if (!ConfigManager.Duviz.EnableSmashHP.value)
+            return;
+
         HealthRemover.percentage = Mathf.Min(damage + UnityEngine.Random.Range(0, 1f) + HealthRemover.percentage, 5000) * 1.5f;
         damage *= (int)MathF.Min(HealthRemover.percentage / 75 + 1, 100000);
         if (HealthRemover.percentage > 1000 && !HealthRemover.dead)
             damage = 0;
     }
+
     [HarmonyPostfix]
     public static void Post(NewMovement __instance)
     {
+        if (!ConfigManager.Duviz.EnableSmashHP.value)
+            return;
+
         NewMovement.instance.rb.velocity += new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)) * HealthRemover.percentage; ;
 
         if (HealthRemover.percentage > 1000 && !__instance.dead && !HealthRemover.dead)
@@ -66,7 +73,8 @@ public class NewMovementRespawnPatch
     [HarmonyPostfix]
     public static void Post(NewMovement __instance)
     {
-        __instance.hp *= 5;
+        if (ConfigManager.Duviz.EnableSmashHP.value)
+            __instance.hp *= 5;
     }
 }
 
@@ -77,7 +85,8 @@ public class NewMovementStartPatch
     [HarmonyPostfix]
     public static void Post(NewMovement __instance)
     {
-        __instance.hp *= 5;
+        if (ConfigManager.Duviz.EnableSmashHP.value)
+            __instance.hp *= 5;
     }
 }
 
@@ -88,6 +97,9 @@ public class NewMovementGetHealthPatch
     [HarmonyPrefix]
     public static bool Prefix(NewMovement __instance, int health, bool silent, bool fromExplosion = false, bool bloodsplatter = true)
     {
+        if (!ConfigManager.Duviz.EnableSmashHP.value)
+            return true;
+
         if (!__instance.dead && (!__instance.exploded || !fromExplosion))
         {
             float num = (float)health;
@@ -105,6 +117,7 @@ public class NewMovementGetHealthPatch
                 {
                     if (__instance.greenHpAud == null)
                         __instance.greenHpAud = __instance.hpFlash.GetComponent<AudioSource>();
+
                     __instance.greenHpAud.Play();
                 }
             }
@@ -122,6 +135,9 @@ public class NewMovementFullHealPatch
     [HarmonyPrefix]
     public static bool Prefix(NewMovement __instance, bool silent)
     {
+        if (!ConfigManager.Duviz.EnableSmashHP.value)
+            return true;
+
         __instance.GetHealth(1000, silent, false, false);
         return false;
     }

@@ -27,11 +27,13 @@ public class Jesus : MonoBehaviour
 
     public void Update()
     {
-        if (NewMovement.instance != null)
+        if (ConfigManager.Duviz.EnableJesus.value && NewMovement.instance != null)
         {
-            if (NewMovement.instance.hp <= 50*5) cooldown -= Time.unscaledDeltaTime;
-            if (NewMovement.instance.hp <= 25*5) cooldown -= Time.unscaledDeltaTime;
-            if (NewMovement.instance.hp <= 15*5) cooldown -= Time.unscaledDeltaTime;
+            int scaler = ConfigManager.Duviz.EnableSmashHP.value ? 5 : 1;
+
+            if (NewMovement.instance.hp <= 30*scaler) cooldown -= Time.unscaledDeltaTime;
+            if (NewMovement.instance.hp <= 20*scaler) cooldown -= Time.unscaledDeltaTime;
+            if (NewMovement.instance.hp <= 10*scaler) cooldown -= Time.unscaledDeltaTime;
             if (NewMovement.instance.hp <= 0) cooldown -= Time.unscaledDeltaTime;
             else deathCount = 0;
             if (NewMovement.instance.hp == 1) cooldown = 2;
