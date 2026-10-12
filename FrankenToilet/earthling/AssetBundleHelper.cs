@@ -17,34 +17,32 @@ public static class AssetBundleHelper
     [EntryPoint]
     public static void Init()
     {
-        LogHelper.LogInfo("[earthling on fire] Loading assets");
-        byte[] data;
+        LogHelper.LogInfo("Loading assets");
+
         try
         {
+            const string resourceName = "FrankenToilet.earthling.toiletonfire.bundle";
+
             Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = $"FrankenToilet.earthling.toiletonfire.bundle";
-            var s = assembly.GetManifestResourceStream(resourceName);
-            s = s ?? throw new FileNotFoundException($"Could not find embedded resource '{resourceName}'.");
-            using var ms = new MemoryStream();
-            s.CopyTo(ms);
-            data = ms.ToArray();
+            using var stream = assembly.GetManifestResourceStream(resourceName)
+                ?? throw new FileNotFoundException($"Could not find embedded resource '{resourceName}'.");
+
+            bundle = AssetBundle.LoadFromStream(stream);
+
+            if (bundle != null)
+            {
+                LogHelper.LogInfo("Loaded assets");
+                FishProvider.LoadFishes();
+            }
+            else
+            {
+                LogHelper.LogError("Error loading bundle");
+            }
+
         }
         catch (Exception ex)
         {
-            LogHelper.LogError($"[earthling on fire] Error loading assets: " + ex.Message);
-            return;
-        }
-
-        bundle = AssetBundle.LoadFromMemory(data);
-
-        if (bundle != null)
-        {
-            LogHelper.LogInfo("[earthling on fire] Loaded assets");
-            FishProvider.LoadFishes();
-        }
-        else
-        {
-            LogHelper.LogError("[earthling on fire] Error loading bundle");
+            LogHelper.LogError("Error loading assets: " + ex.Message);
         }
     }
 

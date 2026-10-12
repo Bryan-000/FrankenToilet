@@ -15,6 +15,7 @@ public static class ConfigManager
     public static DolfeLivePanel DolfeLive;
     public static DoomahRealPanel Doomah;
     public static DuvizPanel Duviz;
+    public static EarthlingPanel Earthling;
     public static PlonkPanel Plonk;
 
     public static void Initialize()
@@ -32,10 +33,10 @@ public static class ConfigManager
            DolfeLive = new(config.rootPanel);
               Doomah = new(config.rootPanel);
                Duviz = new(config.rootPanel);
+           Earthling = new(config.rootPanel);
                Plonk = new(config.rootPanel);
 
         /*
-        ConfigPanel earthlingPanel = new ConfigPanel(config.rootPanel, "earthling", "earthling_panel");
         ConfigPanel flazhikPanel = new ConfigPanel(config.rootPanel, "flazhik", "flazhik_panel");
         ConfigPanel greycsontPanel = new ConfigPanel(config.rootPanel, "greycsont", "greycsont_panel");
         ConfigPanel lakeullPanel = new ConfigPanel(config.rootPanel, "lakeull", "lakeull_panel");

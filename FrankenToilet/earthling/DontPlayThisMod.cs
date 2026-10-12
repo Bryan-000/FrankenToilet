@@ -11,7 +11,7 @@ public static class DontPlayThisMod
     public static void ChangePlayButtonText()
     {
         SceneManager.sceneLoaded += (scene, lcm) => {
-            if (SceneHelper.CurrentScene == "Main Menu")
+            if (SceneHelper.CurrentScene == "Main Menu" && ConfigManager.Earthling.EnableDontPlay.value)
             {
                 GameObject playButtonText = GameObject.Find("Canvas/Main Menu (1)/LeftSide/Continue/Text");
                 playButtonText?.GetComponent<TMPro.TextMeshProUGUI>().text = "don't play";
