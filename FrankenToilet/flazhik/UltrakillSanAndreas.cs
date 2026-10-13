@@ -25,11 +25,12 @@ public class UltrakillSanAndreas
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if (SceneHelper.CurrentScene == null || scene != SceneManager.GetActiveScene() 
+        if (SceneHelper.CurrentScene == null || scene != SceneManager.GetActiveScene()
                                              || SceneHelper.CurrentScene.IsOneOf("Bootstrap", "Main Menu", "Intro"))
             return;
 
-        SetupCanvas();
+        if (ConfigManager.Flazhik.EnableSanAndreas.value)
+            SetupCanvas();
     }
 
     private static void SetupCanvas()

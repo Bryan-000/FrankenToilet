@@ -22,6 +22,9 @@ public class HudMessageReceiverPatch
     [HarmonyPatch(typeof(HudMessageReceiver), "Start")]
     public static void HudMessageReceiver_Start_Postfix(HudMessageReceiver __instance)
     {
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value)
+            return;
+        
         var text = fontPreset.GetComponent<TMP_Text>();
         __instance.text.font = text.font;
         __instance.aud.clip = notification;
@@ -31,6 +34,9 @@ public class HudMessageReceiverPatch
     [HarmonyPatch(typeof(HudMessageReceiver), "PrepText")]
     public static bool HudMessageReceiver_PrepText_Prefix(HudMessageReceiver __instance, ref IEnumerator __result)
     {
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value)
+            return true;
+        
         __instance.text.enabled = true;
         __instance.img.enabled = false;
         __instance.text.SetCharArray(__instance.fullMessage.ToCharArray());

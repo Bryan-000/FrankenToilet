@@ -21,6 +21,9 @@ public class CancerousRodentPatch
     [HarmonyPatch(typeof(CancerousRodent), "Start")]
     public static void CancerousRodent_Start_Postfix(CancerousRodent __instance)
     {
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value)
+            return;
+        
         SubtitleController.Instance.DisplaySubtitle("You picked the wrong house, fool!");
         var harmless = __instance.harmless;
 
@@ -51,6 +54,9 @@ public class CancerousRodentPatch
     [HarmonyPatch(typeof(CancerousRodent), "OnGoLimp")]
     public static void CancerousRodent_OnGoLimp_Prefix(CancerousRodent __instance)
     {
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value)
+            return;
+        
         var bigSmokeDeathHelper = new GameObject
         {
             name = "BigSmokeDeathHelper"

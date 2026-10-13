@@ -14,6 +14,9 @@ public class FinalDoorPatch
     [HarmonyPatch(typeof(FinalDoor), "Open")]
     public static bool FinalDoor_Open_Prefix(FinalDoor __instance)
     {
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value)
+            return true;
+        
         var finalRoom = __instance.transform.parent;
         if (finalRoom.GetComponentInChildren<FinalPit>(true) == null)
             return true;

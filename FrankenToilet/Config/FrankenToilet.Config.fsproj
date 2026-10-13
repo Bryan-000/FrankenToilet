@@ -21,6 +21,7 @@
         <Compile Include="DoomahRealPanel.fs" />
         <Compile Include="DuvizPanel.fs" />
         <Compile Include="EarthlingPanel.fs" />
+        <Compile Include="Flazhik.fs" />
         <Compile Include="PlonkPanel.fs" />
     </ItemGroup>
 

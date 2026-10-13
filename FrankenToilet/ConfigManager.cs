@@ -5,7 +5,7 @@ using FrankenToilet.Config;
 
 public static class ConfigManager
 {
-    public static PluginConfigurator config;
+    public static PluginConfigurator? config;
 
     public static AlmaPanel Alma;
     public static BananaStudioPanel BananaStudio;
@@ -16,6 +16,7 @@ public static class ConfigManager
     public static DoomahRealPanel Doomah;
     public static DuvizPanel Duviz;
     public static EarthlingPanel Earthling;
+    public static FlazhikPanel Flazhik;
     public static PlonkPanel Plonk;
 
     public static void Initialize()
@@ -34,10 +35,10 @@ public static class ConfigManager
               Doomah = new(config.rootPanel);
                Duviz = new(config.rootPanel);
            Earthling = new(config.rootPanel);
+             Flazhik = new(config.rootPanel);
                Plonk = new(config.rootPanel);
 
         /*
-        ConfigPanel flazhikPanel = new ConfigPanel(config.rootPanel, "flazhik", "flazhik_panel");
         ConfigPanel greycsontPanel = new ConfigPanel(config.rootPanel, "greycsont", "greycsont_panel");
         ConfigPanel lakeullPanel = new ConfigPanel(config.rootPanel, "lakeull", "lakeull_panel");
         ConfigPanel mercyPanel = new ConfigPanel(config.rootPanel, "mercy", "mercy_panel");

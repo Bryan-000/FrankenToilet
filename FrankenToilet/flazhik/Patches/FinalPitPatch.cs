@@ -14,6 +14,9 @@ public class FinalPitPatch
     [HarmonyPatch(typeof(FinalPit), "OnTriggerEnter")]
     public static void FinalPit_OnTriggerEnter_Postfix()
     {
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value)
+            return;
+        
         var hud = FindFirstObjectByType<SanAndreasHud>(FindObjectsInactive.Include);
         if (hud == null)
             return;

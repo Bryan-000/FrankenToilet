@@ -14,6 +14,9 @@ public class PlayerActivatorRelayPatch
     [HarmonyPatch(typeof(PlayerActivatorRelay), "Activate")]
     public static void PlayerActivatorRelay_Activate_Postfix()
     {
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value)
+            return;
+        
         var hud = FindFirstObjectByType<SanAndreasHud>(FindObjectsInactive.Include);
         if (hud != null)
             hud.gameObject.SetActive(true);
