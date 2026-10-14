@@ -11,9 +11,6 @@
     <Import Project="../Properties/References.props" />
 
     <ItemGroup>
-
-
-
         <Compile Include="Common.fs" />
         <Compile Include="AlmaPanel.fs" />
         <Compile Include="BananaStudioPanel.fs" />
@@ -24,7 +21,8 @@
         <Compile Include="DoomahRealPanel.fs" />
         <Compile Include="DuvizPanel.fs" />
         <Compile Include="EarthlingPanel.fs" />
-        <Compile Include="Flazhik.fs" />
+        <Compile Include="FlazhikPanel.fs" />
+        <Compile Include="GreycsontPanel.fs" />
         <Compile Include="MercyPanel.fs" />
         <Compile Include="PlonkPanel.fs" />
         <Compile Include="TriggeredIdiotPanel.fs" />
