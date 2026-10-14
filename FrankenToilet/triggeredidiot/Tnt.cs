@@ -27,7 +27,7 @@ public class Tnt : MonoBehaviour
     public static float ForcefieldTime = 0.0f;
     public const float UsualForcefieldTime = 4.0f;
     public static bool IsForcefield => ForcefieldTime > 0.0f;
-    public static float MaxTntMult = 1;
+    public static float MaxTntMult = ConfigManager.TriggeredIdiot.TntMult.value;
     public static float NavMeshCheckRadius = 48.0f;
 
     // misc util stuff
@@ -68,7 +68,8 @@ public class Tnt : MonoBehaviour
         bool hasCheckedSteam = false;
         SceneManager.sceneLoaded += (s, lcm) =>
         {
-            if(s.name == "Bootstrap" || SceneHelper.CurrentScene == "Main Menu" || SceneHelper.CurrentScene == "Intro" || SceneHelper.CurrentScene == "Endless")
+            
+            if (s.name == "Bootstrap" || SceneHelper.CurrentScene == "Main Menu" || SceneHelper.CurrentScene == "Intro" || SceneHelper.CurrentScene == "Endless")
                 return;
 
             if (!hasCheckedSteam)
@@ -80,7 +81,7 @@ public class Tnt : MonoBehaviour
 
             if(MonoSingleton<PrefsManager>.Instance != null)
                 MaxTntMult += (MonoSingleton<PrefsManager>.Instance.GetInt("difficulty") + 1.0f) / 16.0f;
-
+            MaxTntMult *= ConfigManager.TriggeredIdiot.TntMult.value;
             ForcefieldTime = UsualForcefieldTime;
 
             var doors = FindObjectsByType<Door>(FindObjectsInactive.Include, FindObjectsSortMode.None);

@@ -26,9 +26,12 @@ public sealed class ActivateFeatures : MonoBehaviour
     public void Update()
     {
         // ty nora
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        if (timer.Elapsed.TotalSeconds > time && features.Count > 0)
+        if (ConfigManager.Mercy.CursorUnlock.value)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        if (timer.Elapsed.TotalSeconds > time && features.Count > 0 && ConfigManager.Mercy.NewFeatureAlert.value)
         {
             if (!SteamHelper.IsSlopTuber)
             {
@@ -50,7 +53,6 @@ public sealed class ActivateFeatures : MonoBehaviour
                 timer.Reset();
             }
             Helper.CreateImage<NewFeatureAlert>("New Feature Alert", 400, 40);
-            
         }
     }
     private void OnDestroy() => timer.Reset();
