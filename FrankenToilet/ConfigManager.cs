@@ -17,6 +17,7 @@ public static class ConfigManager
     public static DuvizPanel Duviz;
     public static EarthlingPanel Earthling;
     public static FlazhikPanel Flazhik;
+    public static GreycsontPanel Greycsont;
     public static PlonkPanel Plonk;
 
     public static void Initialize()
@@ -36,15 +37,7 @@ public static class ConfigManager
                Duviz = new(config.rootPanel);
            Earthling = new(config.rootPanel);
              Flazhik = new(config.rootPanel);
+           Greycsont = new(config.rootPanel);
                Plonk = new(config.rootPanel);
-
-        /*
-        ConfigPanel greycsontPanel = new ConfigPanel(config.rootPanel, "greycsont", "greycsont_panel");
-        ConfigPanel lakeullPanel = new ConfigPanel(config.rootPanel, "lakeull", "lakeull_panel");
-        ConfigPanel mercyPanel = new ConfigPanel(config.rootPanel, "mercy", "mercy_panel");
-        ConfigPanel prideuniquePanel = new ConfigPanel(config.rootPanel, "prideunique", "prideunique_panel");
-        ConfigPanel somebillyPanel = new ConfigPanel(config.rootPanel, "somebilly", "somebilly_panel");
-        ConfigPanel triggeredidiotPanel = new ConfigPanel(config.rootPanel, "triggeredidiot", "triggeredidiot_panel");
-        */
     }
 }

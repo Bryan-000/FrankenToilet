@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <Compile Include="Common.fs" />
+        
         <Compile Include="AlmaPanel.fs" />
         <Compile Include="BananaStudioPanel.fs" />
         <Compile Include="BlaixenUPanel.fs" />
@@ -21,7 +22,8 @@
         <Compile Include="DoomahRealPanel.fs" />
         <Compile Include="DuvizPanel.fs" />
         <Compile Include="EarthlingPanel.fs" />
-        <Compile Include="Flazhik.fs" />
+        <Compile Include="FlazhikPanel.fs" />
+        <Compile Include="GreycsontPanel.fs" />
         <Compile Include="PlonkPanel.fs" />
     </ItemGroup>
 

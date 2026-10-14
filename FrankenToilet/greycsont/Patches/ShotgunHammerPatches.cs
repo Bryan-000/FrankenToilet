@@ -1,4 +1,4 @@
-using HarmonyLib;
+﻿using HarmonyLib;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Reflection;
@@ -29,6 +29,9 @@ public static class ShotgunHammerPatch
     [HarmonyPatch(nameof(ShotgunHammer.Impact))]
     public static void ImpactPatch(ShotgunHammer __instance)
     {
+        if (!ConfigManager.Greycsont.RandomJackKnockBack.value)
+            return;
+
         lastActiveHammer = __instance;
         DirectionRandomizer.GenerateRandomDirection();
     }
@@ -38,21 +41,28 @@ public static class ShotgunHammerPatch
     public static IEnumerable<CodeInstruction> ImpactRoutineTranspiler
         (IEnumerable<CodeInstruction> instructions)
     {
-        var matcher = new CodeMatcher(instructions);
+        if (ConfigManager.Greycsont.RandomJackKnockBack.value)
+        {
+            var matcher = new CodeMatcher(instructions);
 
-        matcher.MatchForward(false,
-            new CodeMatch(i => i.IsLdloc()),
-            new CodeMatch(OpCodes.Callvirt, TrueStop)
-        );
+            matcher.MatchForward(false,
+                new CodeMatch(i => i.IsLdloc()),
+                new CodeMatch(OpCodes.Callvirt, TrueStop)
+            );
 
-        var num6 = matcher.Instruction;
+            var num6 = matcher.Instruction;
 
-        matcher.InsertAndAdvance(
-            new CodeInstruction(num6.opcode, num6.operand),
-            new CodeInstruction(OpCodes.Call, GenerateArrowImage)
-        );
+            matcher.InsertAndAdvance(
+                new CodeInstruction(num6.opcode, num6.operand),
+                new CodeInstruction(OpCodes.Call, GenerateArrowImage)
+            );
 
-        return matcher.InstructionEnumeration();
+            return matcher.InstructionEnumeration();
+        }
+        else
+        {
+            return instructions;
+        }
     }
 
 
@@ -61,15 +71,22 @@ public static class ShotgunHammerPatch
     public static IEnumerable<CodeInstruction> DeliverDamageTranspiler(
         IEnumerable<CodeInstruction> instructions)
     {
-        var matcher = new CodeMatcher(instructions);
+        if (ConfigManager.Greycsont.RandomJackKnockBack.value)
+        {
+            var matcher = new CodeMatcher(instructions);
 
-        matcher
-            .MatchForward(false, new CodeMatch(OpCodes.Call, negate))
-            .Set(OpCodes.Call, random4)
-            .MatchForward(false, new CodeMatch(OpCodes.Call, negate))
-            .Set(OpCodes.Call, random4);
+            matcher
+                .MatchForward(false, new CodeMatch(OpCodes.Call, negate))
+                .Set(OpCodes.Call, random4)
+                .MatchForward(false, new CodeMatch(OpCodes.Call, negate))
+                .Set(OpCodes.Call, random4);
 
-        return matcher.InstructionEnumeration();
+            return matcher.InstructionEnumeration();
+        }
+        else
+        {
+            return instructions;
+        }
     }
 }
 

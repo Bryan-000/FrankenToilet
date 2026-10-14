@@ -16,27 +16,39 @@ public static class PauseMenuPatch
     [HarmonyPatch(typeof(PauseMenu), nameof(PauseMenu.OnEnable))]
     public static void Postfix(PauseMenu __instance)
     {
-        if (__instance.transform.Find(farinthebluesky) != null) return;
-        var imgObj = new GameObject(farinthebluesky);
+        if (ConfigManager.Greycsont.OsuManiaPauseMenu.value)
+        {
+            if (__instance.transform.Find(farinthebluesky) != null)
+                return;
 
-        imgObj.transform.SetParent(__instance.transform, false);
+            var imgObj = new GameObject(farinthebluesky);
 
-        imgObj.transform.SetAsLastSibling();
+            imgObj.transform.SetParent(__instance.transform, false);
 
-
-        var img = imgObj.AddComponent<Image>();
-        var animator = imgObj.AddComponent<SpriteAnimator>();
-        animator.frames = AssetBundleController.farInTheBlueSky;
-        img.SetNativeSize();
+            imgObj.transform.SetAsLastSibling();
 
 
+            var img = imgObj.AddComponent<Image>();
+            var animator = imgObj.AddComponent<SpriteAnimator>();
+            animator.frames = AssetBundleController.farInTheBlueSky;
+            img.SetNativeSize();
 
-        var rect = imgObj.GetComponent<RectTransform>();
-        rect.anchoredPosition = Vector2.zero;
 
-        rect.localScale = new Vector3(1.3f, 1.3f, 1.3f);
 
-        rect.anchoredPosition = new Vector2(-400f, 0f);
+            var rect = imgObj.GetComponent<RectTransform>();
+            rect.anchoredPosition = Vector2.zero;
+
+            rect.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+
+            rect.anchoredPosition = new Vector2(-400f, 0f);
+        }
+        else
+        {
+            var farTrans = __instance.transform.Find(farinthebluesky);
+
+            if (farTrans)
+                Object.Destroy(farTrans.gameObject);
+        }
     }
 }
 
