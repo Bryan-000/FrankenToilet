@@ -17,8 +17,9 @@ public static class ConfigManager
     public static DuvizPanel Duviz;
     public static EarthlingPanel Earthling;
     public static FlazhikPanel Flazhik;
+    public static MercyPanel Mercy;
     public static PlonkPanel Plonk;
-
+    public static TriggeredIdiotPanel TriggeredIdiot;
     public static void Initialize()
     {
         if (config != null)
@@ -36,7 +37,10 @@ public static class ConfigManager
                Duviz = new(config.rootPanel);
            Earthling = new(config.rootPanel);
              Flazhik = new(config.rootPanel);
+               Mercy = new(config.rootPanel);
                Plonk = new(config.rootPanel);
+      TriggeredIdiot = new(config.rootPanel);
+
 
         /*
         ConfigPanel greycsontPanel = new ConfigPanel(config.rootPanel, "greycsont", "greycsont_panel");
