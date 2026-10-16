@@ -1,14 +1,13 @@
 ﻿namespace FrankenToilet.Plonk;
 
+using FrankenToilet.Config;
 using FrankenToilet.Core;
-using HarmonyLib;
+using System.Collections.Generic;
 using UnityEngine;
 
 [EntryPoint]
 public static class MainCode
 {
-    public static float gravitySwap = float.MaxValue;
-
     [EntryPoint]
     public static void Start()
     {
@@ -18,29 +17,44 @@ public static class MainCode
         obj.hideFlags = HideFlags.HideAndDontSave;
         Object.DontDestroyOnLoad(obj);
     }
-}
 
-public class Penis : MonoBehaviour
-{
-    public void Update()
+    public static float gravitySwap = float.MaxValue;
+    public class Penis : MonoBehaviour
     {
-        MainCode.gravitySwap -= Time.deltaTime;
-        if (MainCode.gravitySwap <= 0 && ConfigManager.Plonk.EnableRandomGravitySwapOnTime.value)
-            NewMovement.Instance?.SwitchGravity(new(0, -40, 0));
+        public void Update()
+        {
+            gravitySwap -= Time.deltaTime;
+            if (gravitySwap <= 0 && ConfigManager.Plonk.EnableRandomGravitySwapOnTime.value)
+                SwitchGravity(new(0, -40, 0));
+        }
     }
-}
 
-[PatchOnEntry]
-public static class Patches
-{
-    [HarmonyPrefix, HarmonyPatch(typeof(NewMovement), nameof(NewMovement.Jump))]
-    public static void FuckingFuckGravity(NewMovement __instance)
+    public static List<Rigidbody> TrackedEnemies = [];
+    public static Vector3 CurrentCustomEnemyGravity;
+
+    public static void SwitchGravity(Vector3 direction)
     {
-        Vector3 gravDir = new(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        CurrentCustomEnemyGravity = direction;
+        GravitySwapTypes swapType = ConfigManager.Plonk.GravitySwapType.value;
 
-        if (ConfigManager.Plonk.EnableGravitySwapOnJump.value)
-            __instance.SwitchGravity(gravDir.normalized * 40f);
-        
-        MainCode.gravitySwap = Random.Range(ConfigManager.Plonk.RandomGravitySwapMinTime.value, ConfigManager.Plonk.RandomGravitySwapMaxTime.value);
+        if (swapType.HasFlag(GravitySwapTypes.PlayerOnly))
+            NewMovement.Instance?.SwitchGravity(direction);
+
+        bool enemyCustomGravity = swapType.HasFlag(GravitySwapTypes.EnemyOnly);
+        for (int i = 0; i < TrackedEnemies.Count; i++)
+        {
+            Rigidbody body = TrackedEnemies[i];
+
+            if (body)
+            {
+                body.useGravity = !enemyCustomGravity;
+                body.SetCustomGravityMode(enemyCustomGravity);
+                body.SetCustomGravity(direction);
+            }
+            else
+            {
+                TrackedEnemies.RemoveAt(i--);
+            }
+        }
     }
 }
