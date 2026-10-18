@@ -55,23 +55,18 @@ public class ItemModMain
 
         // loads bundle
         LogHelper.LogInfo("Loading assets");
-        byte[] data;
         try
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = $"FrankenToilet.lakeull.lakeullsfunnybundle";
-            var s = assembly.GetManifestResourceStream(resourceName);
-            s = s ?? throw new FileNotFoundException($"Could not find embedded resource '{resourceName}'.");
-            using var ms = new MemoryStream();
-            s.CopyTo(ms);
-            data = ms.ToArray();
+            using var s = assembly.GetManifestResourceStream("FrankenToilet.lakeull.lakeullsfunnybundle")
+                ?? throw new FileNotFoundException("Could not find embedded resource.");
+
+            bundle = AssetBundle.LoadFromStream(s);
         }
         catch (Exception ex)
         {
-            LogHelper.LogError($"Error loading assets: " + ex.Message);
-            return;
+            LogHelper.LogError("Error loading assets: " + ex.Message);
         }
-        bundle = AssetBundle.LoadFromMemory(data);
     }
 
     public static void OnSceneLoaded(Scene scene, LoadSceneMode lsm)
@@ -82,7 +77,7 @@ public class ItemModMain
 
     public static void LoadBundle()
     {
-        if(SceneHelper.CurrentScene != "Bootstrap" && SceneHelper.CurrentScene != "Main Menu" && SceneHelper.CurrentScene != "Intro")
+        if (SceneHelper.CurrentScene != "Bootstrap" && SceneHelper.CurrentScene != "Main Menu" && SceneHelper.CurrentScene != "Intro")
         {
             canUseItem = false;
             // i stole this from earthling
@@ -131,11 +126,11 @@ public class ItemModMain
             {
                 itemBox.transform.localPosition = new Vector3(800, -380);
             }
+
+            InitialAssignPower();
             itemBox.AddComponent<ItemModUpdates>();
 
             createOsakaSign();
-            InitialAssignPower();
-            RandomizePower();
         }
     }
 
@@ -202,20 +197,42 @@ public class ItemModMain
 
     public static void RandomizePower()
     {
-        // define random
-        int randomGen = UnityEngine.Random.Range(0, abilityIcons.Count);
-        if (oldRandomGen == randomGen) // checks to see if the ability was the same as last time
+        var items = ConfigManager.Lakeull.ItemsPanel;
+
+        if (items.KillYourself.value
+            || items.BigFuckAssCoin.value
+            || items.EnableIglooItem.value
+            || items.RandomBuffUwU.value
+            || items.Gatorade.value
+            || items.OrbitDawg.value
+            || items.MmmmmmmDonut.value)
         {
-            randomGen = UnityEngine.Random.Range(0, abilityIcons.Count);
+            // define random
+            var randomGen = 7;
+            while (!(randomGen switch
+            {
+                0 => items.KillYourself.value,
+                1 => items.BigFuckAssCoin.value,
+                2 => items.EnableIglooItem.value,
+                3 => items.RandomBuffUwU.value,
+                4 => items.Gatorade.value,
+                5 => items.OrbitDawg.value,
+                6 => items.MmmmmmmDonut.value,
+                _ => false
+            }))
+            {
+                randomGen = UnityEngine.Random.Range(0, 7);
+            }
+
+            oldRandomGen = randomGen;
+
+            // do ability index stuff
+            abilityIndex = randomGen;
+            abilityIcons[randomGen].SetActive(true);
+
+            // reset canUseItem
+            canUseItem = true;
         }
-        oldRandomGen = randomGen;
-
-        // do ability index stuff
-        abilityIndex = randomGen;
-        abilityIcons[randomGen].SetActive(true);
-
-        // reset canUseItem
-        canUseItem = true;
     }
 
     public static void disableAllIcons()
@@ -227,99 +244,108 @@ public class ItemModMain
     }
     public static void usePower()
     {
-        // ability 0, kill yourself (self destruct)
-        if (abilityIndex == 0)
+        switch (abilityIndex)
         {
-            // loads explosion, makes it big
-            GameObject exploderRef = Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Attacks and Projectiles/Explosions/Explosion Malicious Railcannon.prefab").WaitForCompletion();
-            GameObject exploder = GameObject.Instantiate(exploderRef);
-            exploder.transform.SetPositionAndRotation(NewMovement.Instance.transform.position, new Quaternion(0f, 0f, 0f, 0f));
-            exploder.transform.Find("Sphere_8").GetComponent<Explosion>().maxSize = 100;
-            exploder.transform.Find("Sphere_8").GetComponent<Explosion>().speed = 15;
-            exploder.transform.Find("Sphere_8").GetComponent<Explosion>().playerDamageOverride = 1;
-            exploder.transform.localScale = new Vector3(3f, 3f, 3f);
-            GameObject.Instantiate(exploder);
-        }
-        // ability 1, big fucking coin
-        else if (abilityIndex == 1)
-        {
-            // loads coin, makes it big, makes it do crazy fucking wicked damage
-            GameObject bigcoinaddress = Addressables.LoadAssetAsync<GameObject>("Assets/Prefabs/Attacks and Projectiles/Coin.prefab").WaitForCompletion();
-            for(var i = 0; i < 4; i++)
-            {
-                GameObject bigcoin = GameObject.Instantiate(bigcoinaddress);
-                bigcoin.transform.SetPositionAndRotation(NewMovement.Instance.transform.position, new Quaternion(0f, 0f, 0f, 0f));
-                bigcoin.transform.GetComponent<Rigidbody>().useGravity = false;
-                bigcoin.transform.GetComponent<Rigidbody>().velocity = 5f * -NewMovement.Instance.rb.GetGravityDirection();
-                bigcoin.transform.localScale = new Vector3(30f, 30f, 30f);
-                bigcoin.transform.Translate(3f * -NewMovement.Instance.rb.GetGravityDirection());
-                bigcoin.AddComponent<AlwaysLookAtCamera>();
-                bigcoin.GetComponent<Coin>().power = 30;
-            }
-        }
-        // ability 2, igloo
-        else if (abilityIndex == 2)
-        {
-            if (GameObject.Find("igloo(Clone)") == null)
-            {
-                // make new igloo
-                GameObject iglooObjectInstance = GameObject.Instantiate(iglooObject);
-                iglooObjectInstance.transform.position = NewMovement.Instance.transform.position;
-            }
-            else
-            {
-                // set position of existing igloo to player location if its alr present
-                GameObject.Find("igloo(Clone)").transform.position = NewMovement.Instance.transform.position;
-            }
-        }
-        // ability 3, random buff
-        else if (abilityIndex == 3)
-        {
-            // grabs a random status effect, 33% chance
-            int buffRandomIndex = UnityEngine.Random.Range(0, 3);
-            //LogHelper.LogInfo("airhead index : " + buffRandomIndex);
-            if (buffRandomIndex == 0) // extra speed
-            {
-                NewMovement.Instance.transform.GetComponent<NewMovement>().walkSpeed *= 2;
-            }
-            if (buffRandomIndex == 1) // extra jump
-            {
-                NewMovement.Instance.transform.GetComponent<NewMovement>().jumpPower *= 2;
-            }
-            if (buffRandomIndex == 2) // extra hp
-            {
-                NewMovement.Instance.transform.GetComponent<NewMovement>().hp *= 2;
-            }
-        }
-        // ability 4, gatorade
-        else if (abilityIndex == 4)
-        {
-            // Sets the gravity to a random value between -5 and -100, edited by: Alma
-            float _grav = UnityEngine.Random.Range(-5, -100);
-            NewMovement.Instance.SwitchGravity(new Vector3(0f, _grav, 0f));
-        }
-        // ability 5, orbitular dog ( black hole)
-        else if (abilityIndex == 5)
-        {
-            GameObject orbitObjectInstance = GameObject.Instantiate(orbitObject);
-            orbitObjectInstance.AddComponent<SphereForce>().strength = 4000;
-            orbitObjectInstance.AddComponent<AlwaysLookAtCamera>();
-            orbitObjectInstance.transform.position = NewMovement.Instance.transform.position;
-        }
-        // ability 6, mmmmm... donut
-        else if (abilityIndex == 6)
-        {
-            GameObject donutInstance = GameObject.Instantiate(donutObject);
-            GameObject donutInstanceCollider = donutInstance.transform.Find("donutcollider").gameObject;
-            donutInstanceCollider.AddComponent<JumpPad>();
-            donutInstanceCollider.GetComponent<JumpPad>().force = 80;
-            AudioSource audioSourceDonut = donutInstance.transform.Find("donutsound").GetComponent<AudioSource>();
-            donutInstanceCollider.GetComponent<JumpPad>().aud = audioSourceDonut;
-            donutInstanceCollider.GetComponent<JumpPad>().launchSound = audioSourceDonut.clip;
-            donutInstanceCollider.GetComponent<JumpPad>().lightLaunchSound = audioSourceDonut.clip;
-            donutInstanceCollider.GetComponent<JumpPad>().origPitch = 1;
-            donutInstance.transform.position = new Vector3(NewMovement.Instance.transform.position.x, NewMovement.Instance.transform.position.y - 2, NewMovement.Instance.transform.position.z);
-            donutInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up, -NewMovement.Instance.rb.GetGravityDirection().normalized);
+            // ability 0, kill yourself (self destruct)
+            case 0:
+                // loads explosion, makes it big
+                GameObject exploderRef = Addressables
+                                        .LoadAssetAsync<GameObject>(
+                                             "Assets/Prefabs/Attacks and Projectiles/Explosions/Explosion Malicious Railcannon.prefab")
+                                        .WaitForCompletion();
+                GameObject exploder = GameObject.Instantiate(exploderRef);
+                exploder.transform.SetPositionAndRotation(NewMovement.Instance.transform.position,
+                    new Quaternion(0f, 0f, 0f, 0f));
+                exploder.transform.Find("Sphere_8").GetComponent<Explosion>().maxSize = 100;
+                exploder.transform.Find("Sphere_8").GetComponent<Explosion>().speed = 15;
+                exploder.transform.Find("Sphere_8").GetComponent<Explosion>().playerDamageOverride = 1;
+                exploder.transform.localScale = new Vector3(3f, 3f, 3f);
+                GameObject.Instantiate(exploder);
+                break;
+
+            // ability 1, big fucking coin
+            case 1:
+                // loads coin, makes it big, makes it do crazy fucking wicked damage
+                GameObject bigcoinaddress = Addressables
+                                           .LoadAssetAsync<GameObject>(
+                                                "Assets/Prefabs/Attacks and Projectiles/Coin.prefab")
+                                           .WaitForCompletion();
+                for (var i = 0; i < 4; i++)
+                {
+                    GameObject bigcoin = GameObject.Instantiate(bigcoinaddress);
+                    bigcoin.transform.SetPositionAndRotation(NewMovement.Instance.transform.position,
+                        new Quaternion(0f, 0f, 0f, 0f));
+                    bigcoin.transform.GetComponent<Rigidbody>().useGravity = false;
+                    bigcoin.transform.GetComponent<Rigidbody>().velocity =
+                        5f * -NewMovement.Instance.rb.GetGravityDirection();
+                    bigcoin.transform.localScale = new Vector3(30f, 30f, 30f);
+                    bigcoin.transform.Translate(3f * -NewMovement.Instance.rb.GetGravityDirection());
+                    bigcoin.AddComponent<AlwaysLookAtCamera>();
+                    bigcoin.GetComponent<Coin>().power = 30;
+                }
+                break;
+
+            // ability 2, igloo
+            case 2:
+                if (GameObject.Find("igloo(Clone)") == null)
+                {
+                    // make new igloo
+                    GameObject iglooObjectInstance = GameObject.Instantiate(iglooObject);
+                    iglooObjectInstance.transform.position = NewMovement.Instance.transform.position;
+                }
+                else
+                {
+                    // set position of existing igloo to player location if its alr present
+                    GameObject.Find("igloo(Clone)").transform.position = NewMovement.Instance.transform.position;
+                }
+                break;
+
+            // ability 3, random buff
+            case 3:
+                // grabs a random status effect, 33% chance
+                int buffRandomIndex = UnityEngine.Random.Range(0, 3);
+                //LogHelper.LogInfo("airhead index : " + buffRandomIndex);
+                if (buffRandomIndex == 0) // extra speed
+                    NewMovement.Instance.transform.GetComponent<NewMovement>().walkSpeed *= 2;
+
+                if (buffRandomIndex == 1) // extra jump
+                    NewMovement.Instance.transform.GetComponent<NewMovement>().jumpPower *= 2;
+
+                if (buffRandomIndex == 2) // extra hp
+                    NewMovement.Instance.transform.GetComponent<NewMovement>().hp *= 2;
+                break;
+
+            // ability 4, gatorade
+            case 4:
+                // Sets the gravity to a random value between -5 and -100, edited by: Alma
+                float _grav = UnityEngine.Random.Range(-5, -100);
+                NewMovement.Instance.SwitchGravity(new Vector3(0f, _grav, 0f));
+                break;
+
+            // ability 5, orbitular dog ( black hole)
+            case 5:
+                GameObject orbitObjectInstance = GameObject.Instantiate(orbitObject);
+                orbitObjectInstance.AddComponent<SphereForce>().strength = 4000;
+                orbitObjectInstance.AddComponent<AlwaysLookAtCamera>();
+                orbitObjectInstance.transform.position = NewMovement.Instance.transform.position;
+                break;
+
+            // ability 6, mmmmm... donut
+            case 6:
+                GameObject donutInstance = GameObject.Instantiate(donutObject);
+                GameObject donutInstanceCollider = donutInstance.transform.Find("donutcollider").gameObject;
+                donutInstanceCollider.AddComponent<JumpPad>();
+                donutInstanceCollider.GetComponent<JumpPad>().force = 80;
+                AudioSource audioSourceDonut = donutInstance.transform.Find("donutsound").GetComponent<AudioSource>();
+                donutInstanceCollider.GetComponent<JumpPad>().aud = audioSourceDonut;
+                donutInstanceCollider.GetComponent<JumpPad>().launchSound = audioSourceDonut.clip;
+                donutInstanceCollider.GetComponent<JumpPad>().lightLaunchSound = audioSourceDonut.clip;
+                donutInstanceCollider.GetComponent<JumpPad>().origPitch = 1;
+                donutInstance.transform.position = new Vector3(NewMovement.Instance.transform.position.x,
+                    NewMovement.Instance.transform.position.y - 2, NewMovement.Instance.transform.position.z);
+                donutInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up,
+                    -NewMovement.Instance.rb.GetGravityDirection().normalized);
+                break;
         }
 
         // plays the use sound effect
@@ -329,6 +355,13 @@ public class ItemModMain
 
 public class ItemModUpdates : MonoBehaviour
 {
+    public void Awake() =>
+        ConfigManager.Lakeull.EnableItems.onValueChange +=
+            data => gameObject.SetActive(data.value);
+
+    public void OnEnable() =>
+        ItemModMain.RandomizePower();
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.C) && ItemModMain.canUseItem == true && SceneHelper.CurrentScene != "Bootstrap" && SceneHelper.CurrentScene != "Main Menu" && SceneHelper.CurrentScene != "Intro")
@@ -336,13 +369,14 @@ public class ItemModUpdates : MonoBehaviour
             //LogHelper.LogInfo("using power.");
             ItemModMain.usePower();
             ItemModMain.disableAllIcons();
-            StartCoroutine(Cooldown());// counts for 30 seconds
+            StartCoroutine(Cooldown()); // counts for 30 seconds
         }
     }
+
     public static IEnumerator Cooldown()
     {
         ItemModMain.canUseItem = false;
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(ConfigManager.Lakeull.ItemCooldown.value);
         ItemModMain.RandomizePower();
         // play the refill sound effect
         ItemModMain.refillSfx.GetComponent<AudioSource>().Play();

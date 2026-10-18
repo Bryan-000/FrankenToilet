@@ -18,6 +18,7 @@ public static class ConfigManager
     public static EarthlingPanel Earthling;
     public static FlazhikPanel Flazhik;
     public static GreycsontPanel Greycsont;
+    public static LakeullPanel Lakeull;
     public static PlonkPanel Plonk;
 
     public static void Initialize()
@@ -38,6 +39,7 @@ public static class ConfigManager
            Earthling = new(config.rootPanel);
              Flazhik = new(config.rootPanel);
            Greycsont = new(config.rootPanel);
+             Lakeull = new(config.rootPanel);
                Plonk = new(config.rootPanel);
     }
 }
