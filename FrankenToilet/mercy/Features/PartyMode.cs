@@ -41,7 +41,7 @@ public sealed class PartyMode : MonoBehaviour
 
     private void Update()
     {
-        if (deathTimer.Elapsed.TotalSeconds >= 5) Destroy(gameObject);
+        if (deathTimer.Elapsed.TotalSeconds >= 5 || !ConfigManager.Mercy.PartyMode.value) Destroy(gameObject);
         Helper.Animate(ref image, frames, frameTimer, ref index, FRAMECOUNT, 0.01);
         transform.Rotate(Vector3.up, 1);
     }
