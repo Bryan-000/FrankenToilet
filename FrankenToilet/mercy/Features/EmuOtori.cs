@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using FrankenToilet.Core;
 using UnityEngine;
@@ -38,11 +38,11 @@ public sealed class EmuOtori : MonoBehaviour
             gameObject.transform.position = new Vector3(x, y);
         }
 
-        if (duplicateTimer.Elapsed.TotalSeconds >= 60)
+        if (duplicateTimer.Elapsed.TotalSeconds >= 60 && ConfigManager.Mercy.SugoiPopup.value)
         {
             Helper.CreateImage<EmuOtori>("Emu Otori", WIDTH, HEIGHT);
             duplicateTimer.Restart();
         }
-        if (NewMovement.instance.dead) Destroy(gameObject);
+        if (NewMovement.instance.dead || !ConfigManager.Mercy.SugoiPopup.value) Destroy(gameObject);
     }
 }

@@ -19,8 +19,9 @@ public static class ConfigManager
     public static FlazhikPanel Flazhik;
     public static GreycsontPanel Greycsont;
     public static LakeullPanel Lakeull;
+	public static MercyPanel Mercy;
     public static PlonkPanel Plonk;
-
+    public static TriggeredIdiotPanel TriggeredIdiot;
     public static void Initialize()
     {
         if (config != null)
@@ -40,6 +41,8 @@ public static class ConfigManager
              Flazhik = new(config.rootPanel);
            Greycsont = new(config.rootPanel);
              Lakeull = new(config.rootPanel);
+			   Mercy = new(config.rootPanel);
                Plonk = new(config.rootPanel);
+      TriggeredIdiot = new(config.rootPanel);
     }
 }

@@ -41,10 +41,17 @@ public sealed class LevelingSystem : MonoBehaviour
 
     private void Update()
     {
-        foreach (TextMeshProUGUI tmp in GetComponentsInChildren<TextMeshProUGUI>())
+        if (ConfigManager.Mercy.LevelingSystem.value)
         {
-            if (tmp.name == "LEVELCOUNTER") tmp.text = level.ToString();
-            else if (tmp.name == "EXPERIENCECOUNTER") tmp.text = experience + "/" + GetExperienceRequired();
+            foreach (TextMeshProUGUI tmp in GetComponentsInChildren<TextMeshProUGUI>())
+            {
+                if (tmp.name == "LEVELCOUNTER") tmp.text = level.ToString();
+                else if (tmp.name == "EXPERIENCECOUNTER") tmp.text = experience + "/" + GetExperienceRequired();
+            }
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -67,5 +67,6 @@ public sealed class QuickTimeChallenge : MonoBehaviour
             NewMovement.Instance.GetHurt(420, false);
             Destroy(gameObject);
         }
+        if (!ConfigManager.Mercy.QuickTimeChallenges.value) Destroy(gameObject);
     }
 }

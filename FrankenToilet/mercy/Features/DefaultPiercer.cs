@@ -32,11 +32,16 @@ public sealed class DefaultPiercer : MonoBehaviour
 
     private void Update()
     {
-        if (stopwatch.Elapsed.TotalSeconds >= 1)
+        if (stopwatch.Elapsed.TotalSeconds >= 1 && ConfigManager.Mercy.PiercerMods.value)
         {
-            mult = Math.Round(Plugin.rand.NextDouble()+1, 3);
-            tmp.text = "Default Piercer Damage Multiplier: "+mult+"x";
+            mult = Math.Round(Plugin.rand.NextDouble() + 1, 3);
+            tmp.text = "Default Piercer Damage Multiplier: " + mult + "x";
             stopwatch.Restart();
+        }
+        else if (!ConfigManager.Mercy.PiercerMods.value)
+        {
+            mult = 1.0f;
+            Destroy(gameObject);
         }
     }
 }

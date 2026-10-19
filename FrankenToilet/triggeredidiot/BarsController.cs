@@ -128,12 +128,12 @@ public sealed class BarsController : MonoBehaviour
         }
 
         ShowWarningText = false;
-        if (BoringAmount > 0.67f/2.0f) // im fucked up and evil
+        if (BoringAmount > 0.67f/2.0f && ConfigManager.TriggeredIdiot.StyleBar.value) // im fucked up and evil
         {
             WarningText = "DULL";
             ShowWarningText = true;
         }
-        if (AdhdAmount > 0.45f) // moving is more important
+        if (AdhdAmount > 0.45f && ConfigManager.TriggeredIdiot.MovementBar.value) // moving is more important
         {
             WarningText = "MOVE";
             ShowWarningText = true;
@@ -143,7 +143,7 @@ public sealed class BarsController : MonoBehaviour
         if (ShowWarningText)
             warningText.text = _warningText;
 
-        if(AdhdAmount > 1.0f || BoringAmount > 1.0f)
+        if((AdhdAmount > 1.0f && ConfigManager.TriggeredIdiot.MovementBar.value) || (BoringAmount > 1.0f && ConfigManager.TriggeredIdiot.StyleBar.value))
         {
             DeltaruneExplosion.ExplodePlayer();
             AdhdAmount = -1.0f;
