@@ -15,9 +15,13 @@ public static class Startlevelpatch
     [HarmonyPostfix]
     public static void Postfix()
     {
+        if (!ConfigManager.Doomah.EnableEvilScary.value)
+            return;
+        
         _evilStartCounter++;
         LogHelper.LogInfo($"Evil Scary Round Start Counter: {_evilStartCounter}");
-        if (_evilStartCounter < 6) return; //This is jank, level loading calls this twice and i want it to happen after 3 times, Fuck you hakita
+        if (_evilStartCounter < ConfigManager.Doomah.EvilScaryStartCounter.value)
+            return;
 
         var bundle = IMLOADINGITSOHARDDDD.thegrundle;
         GameObject? prefab = bundle.LoadAsset<GameObject>("Assets/Custom/imfrakeninmykill/evilscary/round start canvas/EvilScary 1.prefab");

@@ -12,6 +12,9 @@ public static class PunchPatches
     [HarmonyPatch("Start")]
     public static void SwapTexture(Punch __instance)
     {
+        if (!ConfigManager.Earthling.SwapFistsIHateU.value)
+            return;
+
         switch (__instance.type)
         {
             case FistType.Standard:

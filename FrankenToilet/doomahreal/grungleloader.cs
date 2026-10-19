@@ -23,9 +23,7 @@ public static class IMLOADINGITSOHARDDDD
             return;
         }
 
-        using var ms = new MemoryStream();
-        stream.CopyTo(ms);
-        thegrundle = AssetBundle.LoadFromMemory(ms.ToArray());
+        thegrundle = AssetBundle.LoadFromStream(stream);
 
         if (thegrundle == null)
             LogHelper.LogError("nice one tons of hussle fun, next time try loading it correctly");

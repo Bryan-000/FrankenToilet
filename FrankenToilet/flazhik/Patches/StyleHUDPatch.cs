@@ -18,6 +18,9 @@ public class StyleHUDPatch
     [HarmonyPatch(typeof(StyleHUD), "Start")]
     public static void StyleHUD_Start_Postfix(StyleHUD __instance, ref Vector3 ___defaultPos, GameObject ___styleHud)
     {
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value)
+            return;
+
         // Adjust StyleHUD position
         const int adjustment = 50;
         var saPanel = Instantiate(styleHudCanvas, __instance.transform);

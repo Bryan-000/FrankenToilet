@@ -11,5 +11,9 @@ public class NewMovementPatcher
 {
     [HarmonyPostfix]
     [HarmonyPatch(nameof(NewMovement.Start))]
-    public static void ChangeSSJMaxFrame(NewMovement __instance) => __instance.ssjMaxFrames = 10f;
+    public static void ChangeSSJMaxFrame(NewMovement __instance)
+    {
+        if (ConfigManager.Greycsont.ChangeSsjMaxFrames.value)
+            __instance.ssjMaxFrames = 10f;
+    }
 }

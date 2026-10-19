@@ -24,10 +24,7 @@ internal class Bundle : MonoBehaviour
                 return;
             }
 
-            byte[] data = new byte[stream.Length];
-            stream.Read(data, 0, data.Length);
-
-            bundle = AssetBundle.LoadFromMemory(data);
+            bundle = AssetBundle.LoadFromStream(stream);
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine.SceneManagement;
 using FrankenToilet.Core;
+using UnityEngine;
 
 namespace FrankenToilet.earthling;
 
@@ -17,14 +18,11 @@ public static class SlopTuberAnnoyer
                 {
                     if (SteamHelper.IsSlopTuber)
                     {
-                        LogHelper.LogInfo("THE SUN IS LEAKING");
+                        Debug.LogError("THE SUN IS LEAKING");
                         HudMessageReceiver.Instance.SendHudMessage("THE SUN IS LEAKING");
                     }
                 }
-                catch (Exception)
-                {
-                    return;
-                }
+                catch { }
             }
         };
     }

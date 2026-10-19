@@ -29,6 +29,7 @@ public class EventsManager : MonoBehaviour
 
     public void Update()
     {
+        if (!ConfigManager.Duviz.EnableEvents.value) return;
         if (NewMovement.instance == null) return;
         if (!NewMovement.instance.activated) { timer = 0; return; }
         if (GunControl.instance.noWeapons) { return; }

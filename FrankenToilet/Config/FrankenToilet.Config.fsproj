@@ -1,22 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <LangVersion>latest</LangVersion>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <OtherFlags>--standalone</OtherFlags>
         <NoWarn>FS2011, MSB3277</NoWarn>
+
+        <OtherFlags>--standalone</OtherFlags>
     </PropertyGroup>
 
     <Import Project="../Properties/References.props" />
 
     <ItemGroup>
-        <Compile Include="DolfeLivePanel.fs" />
+        <Compile Include="Common.fs" />
+        
         <Compile Include="AlmaPanel.fs" />
         <Compile Include="BananaStudioPanel.fs" />
         <Compile Include="BlaixenUPanel.fs" />
         <Compile Include="BobTheCornPanel.fs" />
         <Compile Include="BryanPanel.fs" />
         <Compile Include="DolfeLivePanel.fs" />
+        <Compile Include="DoomahRealPanel.fs" />
+        <Compile Include="DuvizPanel.fs" />
+        <Compile Include="EarthlingPanel.fs" />
+        <Compile Include="FlazhikPanel.fs" />
+        <Compile Include="GreycsontPanel.fs" />
+        <Compile Include="MercyPanel.fs" />
         <Compile Include="PlonkPanel.fs" />
+		<Compile Include="TriggeredIdiotPanel.fs"/>
     </ItemGroup>
 
 </Project>

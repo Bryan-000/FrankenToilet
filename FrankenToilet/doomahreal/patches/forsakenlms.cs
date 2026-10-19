@@ -79,7 +79,8 @@ namespace FrankenToilet.doomahreal.patches
         [HarmonyPostfix]
         public static void Postfix(EnemyIdentifier __instance)
         {
-            StatsManagerMonitor.addtothecbtlistt(__instance);
+            if (ConfigManager.Doomah.EnableLastFilthStanding.value)
+                StatsManagerMonitor.addtothecbtlistt(__instance);
         }
     }
 
@@ -90,7 +91,8 @@ namespace FrankenToilet.doomahreal.patches
         [HarmonyPostfix]
         public static void Postfix(StatsManager __instance)
         {
-            StatsManagerMonitor.TrySpawn(__instance);
+            if (ConfigManager.Doomah.EnableLastFilthStanding.value)
+                StatsManagerMonitor.TrySpawn(__instance);
         }
     }
 

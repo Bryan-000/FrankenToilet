@@ -27,7 +27,7 @@ public static class TomfooleryPreventionPatch
     [HarmonyPatch("OnEnable")]
     public static void DontFuckAroundWithMyFonts(TextMeshProUGUI __instance)
     {
-        if (!__instance.gameObject.TryGetComponent<FontProtector>(out var fontProtector))
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value || !__instance.gameObject.TryGetComponent<FontProtector>(out var fontProtector))
             return;
 
         foreach (var component in __instance.gameObject.GetComponents<Component>().Where(static component =>

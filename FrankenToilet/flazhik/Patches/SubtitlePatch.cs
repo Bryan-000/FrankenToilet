@@ -17,6 +17,9 @@ public class SubtitlePatch
     [HarmonyPatch(typeof(Subtitle), "Awake")]
     public static void Subtitle_Awake_Postfix(Subtitle __instance)
     {
+        if (!ConfigManager.Flazhik.EnableSanAndreas.value)
+            return;
+
         var text = fontPreset.GetComponent<TMP_Text>();
         __instance.uiText.font = text.font;
     }

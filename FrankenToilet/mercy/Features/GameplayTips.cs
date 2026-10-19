@@ -53,8 +53,15 @@ public sealed class GameplayTips : MonoBehaviour
     {
         if (fontSize >= 28 || fontSize <= 24) additionFactor = -additionFactor;
         fontSize += additionFactor;
-        text.fontSize = fontSize;
-        if (timer.Elapsed.TotalSeconds >= 20)
+        if (ConfigManager.Mercy.GameplayTips.value)
+        {
+            text.fontSize = fontSize;
+        }
+        else
+        {
+            text.fontSize = 0; //yes ik janky ass fix but works
+        }
+        if (timer.Elapsed.TotalSeconds >= 20 && ConfigManager.Mercy.GameplayTips.value)
         {
             GenerateGameplayTip();
             timer.Restart();

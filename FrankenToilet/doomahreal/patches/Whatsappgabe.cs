@@ -4,9 +4,7 @@ using UnityEngine;
 
 namespace FrankenToilet.doomahreal.patches;
 
-/// 
-/// this file's length was almost reaching 150 lines
-///
+// this file's length was almost reaching 150 lines
 
 [PatchOnEntry]
 [HarmonyPatch(typeof(GabrielVoice), "Start")]
@@ -15,6 +13,9 @@ public static class WHATSUPSTAIRS
     [HarmonyPostfix]
     public static void Postfix(GabrielVoice __instance)
     {
+        if (!ConfigManager.Doomah.EnableWhatsAppGabe.value)
+            return;
+
         var b = IMLOADINGITSOHARDDDD.thegrundle;
         var w = b.LoadAsset<AudioClip>("Assets/Custom/imfrakeninmykill/whatsappgabe/wt.mp3");
 

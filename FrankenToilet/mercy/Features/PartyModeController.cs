@@ -12,7 +12,7 @@ public class PartyModeController : MonoBehaviour
     private void Awake() => stopwatch.Start();
     private void Update()
     {
-        if (stopwatch.Elapsed.TotalSeconds >= 1)
+        if (stopwatch.Elapsed.TotalSeconds >= 1 && ConfigManager.Mercy.PartyMode.value)
         {
             if (Plugin.rand.Next(1, 60) == 1) PartyMode.Activate();
             stopwatch.Restart();

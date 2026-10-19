@@ -8,24 +8,31 @@ namespace FrankenToilet.earthling;
 [HarmonyPatch(typeof(FistControl))]
 public static class FistControlPatches
 {
+    public static bool ShouldSwap => ConfigManager.Earthling.SwapFistsIHateU.value;
+
     [HarmonyPrefix]
     [HarmonyPatch("UpdateFistIcon")]
     public static void SwapArmsBeforeUpdatingIcon(FistControl __instance)
     {
-        __instance.currentVarNum = (__instance.currentVarNum + 1) % 2;
+        if (ShouldSwap)
+            __instance.currentVarNum = (__instance.currentVarNum + 1) % 2;
     }
 
     [HarmonyPostfix]
     [HarmonyPatch("UpdateFistIcon")]
     public static void SwapArmsAfterUpdatingIcon(FistControl __instance)
     {
-        __instance.currentVarNum = (__instance.currentVarNum + 1) % 2;
+        if (ShouldSwap)
+            __instance.currentVarNum = (__instance.currentVarNum + 1) % 2;
     }
 
     [HarmonyPrefix]
     [HarmonyPatch("Update")]
 	public static bool UseWrongArm(FistControl __instance) // im sorry
 	{
+        if (!ShouldSwap)
+            return true;
+
         InputManager inman = InputManager.Instance;
 		if (__instance.fistCooldown > -1f)
 		{

@@ -26,8 +26,6 @@
   
   <ItemGroup>
     <ProjectReference Include="Config\FrankenToilet.Config.fsproj" />
-    <Compile Remove="Config\**" />
-    <EmbeddedResource Remove="Config\**" />
     <None Remove="Config\**" />
   </ItemGroup>
 

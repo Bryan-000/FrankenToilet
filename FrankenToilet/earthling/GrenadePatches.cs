@@ -12,10 +12,16 @@ public static class GrenadePatches
     [HarmonyPatch(nameof(Grenade.PlayerRideStart))]
     public static void NoRocketRidesForYouBuddy(Grenade __instance)
     {
-        __instance.totalDamageMultiplier = 100f;
-        GameObject superExplosion = __instance.superExplosion;
-        __instance.superExplosion = GameObject.Instantiate(superExplosion);
-        __instance.superExplosion.transform.GetChild(0).GetComponent<Explosion>().maxSize = 1000;
+        if (!ConfigManager.Earthling.NoRocketsForYou.value)
+            return;
+
+        __instance.superExplosion = GameObject.Instantiate(__instance.superExplosion);
+
+        var boom = __instance.superExplosion.transform.GetChild(0).GetComponent<Explosion>();
+        boom.canHit = AffectedSubjects.PlayerOnly;
+        boom.damage = 50;
+        boom.maxSize = 100;
+
         __instance.Explode(true, false, true, 3f, false, null);
     }
 }

@@ -11,6 +11,9 @@ public static class WeaponIconPatches
     [HarmonyPatch("Start")]
     public static void ReplaceIcon(WeaponIcon __instance)
     {
+        if (!ConfigManager.Earthling.HandDrawnIcons.value)
+            return;
+
         WeaponDescriptor? awesomeGun = AssetBundleHelper.LoadAsset<WeaponDescriptor>("Assets/Bundles/toiletonfire/awesomegun.asset");
         WeaponDescriptor newDescriptor = new WeaponDescriptor();
 

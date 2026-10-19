@@ -5,7 +5,7 @@ using FrankenToilet.Config;
 
 public static class ConfigManager
 {
-    public static PluginConfigurator config;
+    public static PluginConfigurator? config;
 
     public static AlmaPanel Alma;
     public static BananaStudioPanel BananaStudio;
@@ -13,6 +13,15 @@ public static class ConfigManager
     public static BobTheCornPanel BobTheCorn;
     public static BryanPanel Bryan;
     public static DolfeLivePanel DolfeLive;
+    public static DoomahRealPanel Doomah;
+    public static DuvizPanel Duviz;
+    public static EarthlingPanel Earthling;
+    public static FlazhikPanel Flazhik;
+    public static GreycsontPanel Greycsont;
+<<<<<<< HEAD
+    public static MercyPanel Mercy;
+=======
+>>>>>>> parent of b590629 (fix conflicts)
     public static PlonkPanel Plonk;
 
     public static void Initialize()
@@ -24,23 +33,17 @@ public static class ConfigManager
 
                 Alma = new(config.rootPanel);
         BananaStudio = new(config.rootPanel);
-        BlaixenU = new(config.rootPanel);
+            BlaixenU = new(config.rootPanel);
           BobTheCorn = new(config.rootPanel);
-        Bryan = new(config.rootPanel);
+               Bryan = new(config.rootPanel);
            DolfeLive = new(config.rootPanel);
-        Plonk = new(config.rootPanel);
-
-        /*
-        ConfigPanel doomahrealPanel = new ConfigPanel(config.rootPanel, "doomahreal", "doomahreal_panel");
-        ConfigPanel duvizPanel = new ConfigPanel(config.rootPanel, "duviz", "duviz_panel");
-        ConfigPanel earthlingPanel = new ConfigPanel(config.rootPanel, "earthling", "earthling_panel");
-        ConfigPanel flazhikPanel = new ConfigPanel(config.rootPanel, "flazhik", "flazhik_panel");
-        ConfigPanel greycsontPanel = new ConfigPanel(config.rootPanel, "greycsont", "greycsont_panel");
-        ConfigPanel lakeullPanel = new ConfigPanel(config.rootPanel, "lakeull", "lakeull_panel");
-        ConfigPanel mercyPanel = new ConfigPanel(config.rootPanel, "mercy", "mercy_panel");
-        ConfigPanel prideuniquePanel = new ConfigPanel(config.rootPanel, "prideunique", "prideunique_panel");
-        ConfigPanel somebillyPanel = new ConfigPanel(config.rootPanel, "somebilly", "somebilly_panel");
-        ConfigPanel triggeredidiotPanel = new ConfigPanel(config.rootPanel, "triggeredidiot", "triggeredidiot_panel");
-        */
+              Doomah = new(config.rootPanel);
+               Duviz = new(config.rootPanel);
+           Earthling = new(config.rootPanel);
+             Flazhik = new(config.rootPanel);
+           Greycsont = new(config.rootPanel);
+               Mercy = new(config.rootPanel);
+               Plonk = new(config.rootPanel);
+      TriggeredIdiot = new(config.rootPanel);
     }
 }
